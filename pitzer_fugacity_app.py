@@ -13,54 +13,70 @@ st.set_page_config(
     layout="centered"
 )
 
-# ------------------------------------------------------------
-# INTRO PAGE LOGIC
-# ------------------------------------------------------------
+st.set_page_config(layout="wide")
+
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
 if st.session_state.show_intro:
 
-    st.set_page_config(layout="wide")  # <-- ensures max-width page
-
     st.markdown("""
     <style>
-    /* Make Streamlit main container full width */
+    /* REMOVE ALL DEFAULT PADDING */
     .block-container {
         padding: 0 !important;
         margin: 0 !important;
         max-width: 100% !important;
     }
 
-    /* Full-screen background */
-    body {
+    html, body {
+        height: 100%;
         margin: 0;
         padding: 0;
-        background: url("https://images.unsplash.com/photo-1581091012184-5c8f8b9c3f65?auto=format&fit=crop&w=1600&q=80")
-                    center/cover no-repeat fixed !important;
+        overflow: hidden !important;
     }
 
-    /* Flex center full-screen wrapper */
+    /* FULLSCREEN BACKGROUND */
+    body {
+        background: #0d0d0d !important;
+        background-size: cover !important;
+        background-attachment: fixed !important;
+    }
+
+    /* FULLSCREEN FLEX CENTER BOX */
     .fullscreen-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100vw;
         height: 100vh;
+
         display: flex;
         justify-content: center;
         align-items: center;
+
+        padding: 40px;
+        box-sizing: border-box;
     }
 
-    /* The central intro box */
+    /* MAIN INTRO BOX */
     .intro-box {
-        width: 70%;
-        max-width: 900px;
+        width: 75%;
+        max-width: 1050px;
 
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.70);
         padding: 50px;
-        border-radius: 20px;
-        text-align: center;
-        color: white;
+        border-radius: 25px;
 
-        animation: fadeIn 1s ease-in-out;
+        color: white;
+        text-align: center;
+
+        overflow-y: auto;
+        max-height: 90vh;
+
+        backdrop-filter: blur(4px);
+
+        animation: fadeIn 0.8s ease-in-out;
     }
 
     .intro-title {
@@ -71,24 +87,25 @@ if st.session_state.show_intro:
 
     .intro-subtitle {
         font-size: 28px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
     .intro-text {
         font-size: 20px;
         line-height: 1.6;
-        margin-top: 10px;
+        margin-bottom: 15px;
     }
 
     .team-title {
-        margin-top: 35px;
         font-size: 30px;
-        font-weight: 700;
+        font-weight: bold;
+        margin-top: 35px;
     }
 
     .team-names {
         font-size: 20px;
         line-height: 1.7;
+        margin-top: 10px;
     }
 
     @keyframes fadeIn {
@@ -131,13 +148,15 @@ if st.session_state.show_intro:
     </div>
     """, unsafe_allow_html=True)
 
-    # Center the button below the fullscreen area
-    col1, col2, col3 = st.columns([2,1,2])
-    with col2:
-        if st.button("🚀 Enter Fugacity Calculator"):
+    # Center the button BELOW the fullscreen wrapper
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    cols = st.columns([2,1,2])
+    with cols[1]:
+        if st.button("🚀 Enter Fugacity Calculator", use_container_width=True):
             st.session_state.show_intro = False
 
     st.stop()
+
 
 # ------------------------------------------------------------
 # PAGE BACKGROUND (Chemical Lab Style)
