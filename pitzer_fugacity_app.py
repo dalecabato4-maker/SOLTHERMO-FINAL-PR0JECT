@@ -213,8 +213,8 @@ if multi_calc:
             subset=["Fugacity (bar)"]
         ).set_table_styles([
             {"selector": "thead th", "props": [
-                ("background-color", "#1E88E5"),
-                ("color", "white"),
+                ("background-color", "#172630"),
+                ("color", "gray"),
                 ("text-align", "center"),
                 ("font-weight", "bold")
             ]},
