@@ -200,4 +200,20 @@ if multi_calc:
 
         # 📊 Bar Chart Visualization
         fig, ax = plt.subplots()
-        gases_list = [r["
+        gases_list = [r["Gas"] for r in results]
+        fugacities = [float(r["Fugacity (bar)"]) for r in results]
+        ax.bar(gases_list, fugacities, color="#1E88E5")
+        ax.set_ylabel("Fugacity (bar)")
+        ax.set_title("Fugacity per Species")
+        ax.set_ylim(0, max(fugacities) * 1.2)
+        for i, v in enumerate(fugacities):
+            ax.text(i, v + 0.01, f"{v:.2f}", ha='center', va='bottom', fontsize=9)
+        st.pyplot(fig)
+
+        # 📋 Download Button
+        st.download_button(
+            label="📥 Download Results as CSV",
+            data=df_multi.to_csv(index=False).encode("utf-8"),
+            file_name="fugacity_results.csv",
+            mime="text/csv"
+        )
