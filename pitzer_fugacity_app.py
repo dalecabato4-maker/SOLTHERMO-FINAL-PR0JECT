@@ -1,6 +1,39 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
+import math
+from pathlib import Path
+
+# --- INTRO PAGE LOGIC ---
+if "show_intro" not in st.session_state:
+    st.session_state.show_intro = True
+
+if st.session_state.show_intro:
+    st.markdown("""
+        <div style='text-align:center; padding: 60px;'>
+            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/UN_emblem_blue.svg/1200px-UN_emblem_blue.svg.png'
+                 width='180' style='margin-bottom:20px;'>
+
+            <h1 style='font-size:48px; margin-bottom:10px;'>🌍 GDP Dashboard</h1>
+            <h3 style='color:gray; margin-top:-10px;'>World Bank GDP Data Explorer</h3>
+
+            <p style='font-size:18px; margin-top:25px;'>
+                Welcome to our interactive GDP Analytics Tool.<br>
+                Explore GDP data across countries and decades using real global statistics.
+            </p>
+
+            <h4 style='margin-top:40px;'>Developed by:</h4>
+            <p style='font-size:18px;'>
+                <b>Your Name</b><br>
+                <b>Teammate 1</b><br>
+                <b>Teammate 2</b>
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    if st.button("Enter Dashboard 🚀"):
+        st.session_state.show_intro = False
+
+    st.stop()
 
 # ------------------------------------------------------------
 # Page Configuration
