@@ -18,7 +18,7 @@ chemical_css = """
 <style>
 /* Background with chemical engineering blueprint pattern */
 .stApp {
-    background: linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90));
+    background: linear-gradient(rgba(25,54,39,0.90), rgba(25,54,39,0.90));
 }
 
 /* Title styling */
