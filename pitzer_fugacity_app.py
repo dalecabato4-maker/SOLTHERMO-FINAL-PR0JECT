@@ -37,7 +37,6 @@ if st.session_state.show_homepage:
 
     if st.button("🚀 Enter Calculator"):
         st.session_state.show_homepage = False
-        st.experimental_rerun()
 
     st.stop()
 
