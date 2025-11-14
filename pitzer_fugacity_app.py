@@ -16,35 +16,35 @@ st.markdown("""
 <div style="background-color: #707d64; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
 <h2 style="color:#f0f6ff; font-weight:800;"> About This Thermodynamic Calculator</h2>
 
-<p style="font-size:16px; color:#0B3D91;">
+<p style="font-size:16px; color:#f0f6ff;">
 Welcome to the <b>Fugacity & Fugacity Coefficient Calculator</b>, a modern tool crafted for Chemical Engineers 
 working with <b>real-gas behavior</b>, <b>process design</b>, and <b>thermodynamic modeling</b>.
 </p>
 
-<p style="font-size:16px; color:#0B3D91;">
+<p style="font-size:16px; color:#f0f6ff;">
 This interactive calculator uses the <b>Pitzer Correlation</b>, a trusted method for estimating non-ideal gas behavior at elevated pressures.
 With just a few inputs, it helps you determine:
 </p>
 
-<ul style="color:#0B3D91; font-size:15px;">
+<ul style="color:#f0f6ff; font-size:15px;">
 <li> <b>Reduced Properties:</b> Reduced Temperature (Tr), Reduced Pressure (Pr)</li>
 <li> <b>Virial Coefficient Parameters:</b> B0 and B1 from Pitzer correlations</li>
 <li> <b>Real-Gas Properties:</b> Fugacity Coefficient (φ), Fugacity (corrected for non-ideality)</li>
 </ul>
 
-<p style="font-size:16px; color:#0B3D91;">
+<p style="font-size:16px; color:#f0f6ff;">
 Whether you are analyzing <b>VLE</b>, sizing <b>separation units</b>, simulating <b>reactors</b>, or handling high-pressure systems,
 this calculator provides fast, clean, and reliable real-gas estimates-perfect for:
 </p>
 
-<ul style="color:#0B3D91; font-size:15px;">
+<ul style="color:#f0f6ff; font-size:15px;">
 <li>Chemical Engineering students</li>
 <li>Plant and process engineers</li>
 <li>Researchers and designers</li>
 <li>Anyone studying thermodynamics or real-gas behavior</li>
 </ul>
 
-<p style="font-size:16px; color:#0B3D91;">
+<p style="font-size:16px; color:#f0f6ff;">
 Built with a <b>blueprint-style chemical engineering theme</b>, the interface combines clarity with an engineering aesthetic,
 making your calculations both efficient and visually engaging.
 </p>
