@@ -41,15 +41,6 @@ if st.session_state.show_homepage:
     st.stop()
 
 # ------------------------------------------------------------
-# Header Section
-# ------------------------------------------------------------
-st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
-st.markdown("""
-This interactive app estimates *fugacity* and *fugacity coefficient (φ)* for selected gases  
-using the *Pitzer correlation*. It supports both pure gases and mixtures (via mole fraction input).
-""")
-
-# ------------------------------------------------------------
 # Gas Database (Critical Constants)
 # ------------------------------------------------------------
 gases = {
@@ -61,27 +52,6 @@ gases = {
     "Ammonia (NH₃)": {"Tc": 405.5, "Pc": 113.5, "omega": 0.256},
     "Custom": {"Tc": 300.0, "Pc": 50.0, "omega": 0.1}
 }
-
-# ------------------------------------------------------------
-# Sidebar: Gas Selection
-# ------------------------------------------------------------
-st.sidebar.header("⚙️ Gas Selection & Constants")
-selected_gas = st.sidebar.selectbox("Select a gas:", list(gases.keys()))
-
-Tc = st.sidebar.number_input("Critical Temperature Tc (K)", value=gases[selected_gas]["Tc"], step=0.1)
-Pc = st.sidebar.number_input("Critical Pressure Pc (bar)", value=gases[selected_gas]["Pc"], step=0.1)
-omega = st.sidebar.number_input("Acentric Factor ω", value=gases[selected_gas]["omega"], step=0.001)
-
-# ------------------------------------------------------------
-# User Inputs
-# ------------------------------------------------------------
-st.header("🧮 Input Conditions")
-
-T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
-P = st.number_input("Pressure (P) [bar]", value=10.0, step=0.1)
-y = st.number_input("Concentration / Mole Fraction (y)", value=1.0, min_value=0.0, max_value=1.0, step=0.01)
-
-calculate = st.button("🧮 Calculate Fugacity and φ")
 
 # ------------------------------------------------------------
 # Pitzer Correlation Function
@@ -104,42 +74,75 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
     }
 
 # ------------------------------------------------------------
-# Results Section
+# Header Section
 # ------------------------------------------------------------
-if calculate:
-    results = pitzer_fugacity(T, P, Tc, Pc, omega)
-    fugacity_adjusted = results["fugacity"] * y
+st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
+st.markdown("""
+This interactive app estimates *fugacity* and *fugacity coefficient (φ)* for selected gases  
+using the *Pitzer correlation*. It supports both pure gases and mixtures (via mole fraction input).
+""")
 
-    df_results = pd.DataFrame({
-        "Parameter": [
-            "Selected Gas", "Reduced Temperature (Tr)", "Reduced Pressure (Pr)",
-            "B⁰", "B¹", "Fugacity Coefficient (φ)", "Fugacity (f, bar)"
-        ],
-        "Value": [
-            selected_gas,
-            f"{results['Tr']:.3f}",
-            f"{results['Pr']:.3f}",
-            f"{results['B0']:.5f}",
-            f"{results['B1']:.5f}",
-            f"{results['phi']:.5f}",
-            f"{fugacity_adjusted:.5f}"
-        ]
+# ------------------------------------------------------------
+# Multi-Species Input Section
+# ------------------------------------------------------------
+st.header("🧪 Multi-Species Fugacity Calculation")
+
+num_species = st.selectbox("Number of species to calculate:", [1, 2, 3])
+
+species_inputs = []
+for i in range(num_species):
+    st.subheader(f"Species {i+1}")
+    gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
+    mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
+    species_inputs.append({
+        "name": gas,
+        "Tc": gases[gas]["Tc"],
+        "Pc": gases[gas]["Pc"],
+        "omega": gases[gas]["omega"],
+        "y": mole_frac
     })
 
-    st.success("✅ Calculation completed successfully!")
-    st.header("📊 Results Table")
+T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
+P = st.number_input("Pressure (P) [bar]", value=10.0, step=0.1)
 
-    st.dataframe(
-        df_results.style.set_table_styles([
-            {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
-            {"selector": "tbody td", "props": [("background-color", "#F5F7FA"), ("text-align", "center"), ("padding", "6px 10px")]},
-            {"selector": "tbody tr:hover td", "props": [("background-color", "#E3F2FD")]}
-        ]).hide(axis="index"),
-        use_container_width=True
-    )
+multi_calc = st.button("🧮 Calculate Fugacity and φ")
 
-    st.divider()
-    st.caption("Computed using Pitzer Correlation (Pitzer & Curl, 1957)")
+# ------------------------------------------------------------
+# Multi-Species Calculation & Results
+# ------------------------------------------------------------
+if multi_calc:
+    total_y = sum([s["y"] for s in species_inputs])
+    if total_y > 1.0:
+        st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
+    else:
+        results = []
+        for s in species_inputs:
+            res = pitzer_fugacity(T, P, s["Tc"], s["Pc"], s["omega"])
+            f_corrected = res["fugacity"] * s["y"]
+            results.append({
+                "Gas": s["name"],
+                "y": f"{s['y']:.2f}",
+                "Tr": f"{res['Tr']:.3f}",
+                "Pr": f"{res['Pr']:.3f}",
+                "B⁰": f"{res['B0']:.5f}",
+                "B¹": f"{res['B1']:.5f}",
+                "φ": f"{res['phi']:.5f}",
+                "Fugacity (bar)": f"{f_corrected:.5f}"
+            })
+
+        df_multi = pd.DataFrame(results)
+
+        st.success("✅ Multi-species calculation completed!")
+        st.dataframe(
+            df_multi.style.set_table_styles([
+                {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
+                {"selector": "tbody td", "props": [("background-color", "#F5F7FA"), ("text-align", "center"), ("padding", "6px 10px")]},
+                {"selector": "tbody tr:hover td", "props": [("background-color", "#E3F2FD")]}
+            ]),
+            use_container_width=True
+        )
+
+        st.caption("Each fugacity value is corrected by mole fraction (f × y).")
 
 # ------------------------------------------------------------
 # Footer Notes
