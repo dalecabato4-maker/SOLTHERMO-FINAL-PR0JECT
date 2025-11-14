@@ -30,7 +30,7 @@ h1 {
 
 /* Sidebar Styling */
 section[data-testid="stSidebar"] > div:first-child {
-    background-color: #E3F2FD;
+    background-color: #373b33;
     background-image: none;
     background-size: 200px;
     background-repeat: no-repeat;
