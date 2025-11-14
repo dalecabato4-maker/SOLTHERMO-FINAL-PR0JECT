@@ -7,12 +7,6 @@ import numpy as np
 # ------------------------------------------------------------
 # Page Configuration MUST be first Streamlit command
 # ------------------------------------------------------------
-st.set_page_config(
-    page_title="Fugacity Calculator (Pitzer Correlation)",
-    page_icon="⚗️",
-    layout="centered"
-)
-
 st.set_page_config(layout="wide")
 
 if "show_intro" not in st.session_state:
@@ -22,101 +16,87 @@ if st.session_state.show_intro:
 
     st.markdown("""
     <style>
-    /* REMOVE ALL DEFAULT PADDING */
-    .block-container {
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: 100% !important;
-    }
+        /* REMOVE STREAMLIT DEFAULT MARGINS */
+        .block-container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            max-width: 100% !important;
+        }
 
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden !important;
-    }
+        /* MAKE PAGE FULLSCREEN */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
 
-    /* FULLSCREEN BACKGROUND */
-    body {
-        background: #0d0d0d !important;
-        background-size: cover !important;
-        background-attachment: fixed !important;
-    }
+        /* FULLSCREEN FLEX CENTERED WRAPPER */
+        .fullscreen-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
 
-    /* FULLSCREEN FLEX CENTER BOX */
-    .fullscreen-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+            background: #0d0d0d;
+            color: white;
+            font-family: 'Arial';
+        }
 
-        padding: 40px;
-        box-sizing: border-box;
-    }
+        /* MAIN INTRO BOX */
+        .intro-box {
+            width: 80%;
+            max-width: 1000px;
 
-    /* MAIN INTRO BOX */
-    .intro-box {
-        width: 75%;
-        max-width: 1050px;
+            background: rgba(0,0,0,0.6);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
 
-        background: rgba(0, 0, 0, 0.70);
-        padding: 50px;
-        border-radius: 25px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
-        color: white;
-        text-align: center;
+        .intro-title {
+            font-size: 50px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
 
-        overflow-y: auto;
-        max-height: 90vh;
+        .intro-subtitle {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
 
-        backdrop-filter: blur(4px);
+        .intro-text {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
 
-        animation: fadeIn 0.8s ease-in-out;
-    }
+        .team-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
 
-    .intro-title {
-        font-size: 55px;
-        font-weight: 900;
-        margin-bottom: 10px;
-    }
-
-    .intro-subtitle {
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-
-    .intro-text {
-        font-size: 20px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-
-    .team-title {
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 35px;
-    }
-
-    .team-names {
-        font-size: 20px;
-        line-height: 1.7;
-        margin-top: 10px;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
+        .team-names {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-top: 10px;
+        }
     </style>
 
     <div class="fullscreen-wrapper">
         <div class="intro-box">
-
+            
             <div class="intro-title">Calculator Suite</div>
             <div class="intro-subtitle">Fugacity & Fugacity Coefficient<br>(Pitzer Correlation)</div>
 
@@ -148,14 +128,12 @@ if st.session_state.show_intro:
     </div>
     """, unsafe_allow_html=True)
 
-    # Center the button BELOW the fullscreen wrapper
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    cols = st.columns([2,1,2])
-    with cols[1]:
-        if st.button("🚀 Enter Fugacity Calculator", use_container_width=True):
-            st.session_state.show_intro = False
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("🚀 Enter Fugacity Calculator", use_container_width=True):
+        st.session_state.show_intro = False
 
     st.stop()
+
 
 
 # ------------------------------------------------------------
