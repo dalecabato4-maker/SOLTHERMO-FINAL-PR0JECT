@@ -186,25 +186,6 @@ with tab_results:
         st.dataframe(df, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-        # Plots: phi vs Pressure sweep (keeping T fixed)
-        st.markdown("<div class='card' style='margin-top:12px'>", unsafe_allow_html=True)
-        st.subheader("Plot: φ vs Pressure (P sweep)")
-
-        P_vals = np.linspace(max(0.01, P * 0.1), P * 3.0, 120)
-        phi_vals = []
-        for Pv in P_vals:
-            rr = pitzer_fugacity(T, Pv, Tc, Pc, omega)
-            phi_vals.append(rr['phi'])
-
-        fig, ax = plt.subplots(figsize=(7, 3.5))
-        ax.plot(P_vals, phi_vals)
-        ax.set_xlabel('Pressure [bar]')
-        ax.set_ylabel('Fugacity coefficient φ')
-        ax.set_title('φ vs P (T fixed at {:.1f} K)'.format(T))
-        ax.xaxis.set_major_locator(MaxNLocator(6))
-        ax.grid(alpha=0.15)
-        st.pyplot(fig)
-        st.markdown("</div>", unsafe_allow_html=True)
 
         # Small explanation and save option
         with st.expander("Save results / export"):
