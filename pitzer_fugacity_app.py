@@ -22,111 +22,91 @@ if "show_intro" not in st.session_state:
 # INTRO SCREEN (animated + styled)
 # -----------------------------------------
 if st.session_state.show_intro:
-    # unlock unsafe HTML mode (helps CSS apply reliably)
-    st.markdown("", unsafe_allow_html=True)
 
     st.markdown(
-    """
-    <style>
-    /* Basic reset so styles render reliably in Streamlit */
-    html, body, [class*="css"] { margin:0; padding:0; }
-    .fullscreen-wrapper {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #0b0f17, #0f1720, #0d1b2a);
-        background-size: 300% 300%;
-        animation: gradientShift 12s ease infinite;
-        font-family: "Segoe UI", Roboto, Arial, sans-serif;
-        z-index: 9999;
-    }
-    @keyframes gradientShift {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
+        """
+        <style>
+        html, body, [class*="css"] { margin:0; padding:0; }
+        .fullscreen-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0b0f17, #0f1720, #0d1b2a);
+            background-size: 300% 300%;
+            animation: gradientShift 12s ease infinite;
+            z-index: 9999;
+        }
+        @keyframes gradientShift {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
 
-    .intro-box {
-        width: 86%;
-        max-width: 980px;
-        padding: 36px;
-        border-radius: 16px;
-        background: rgba(12, 18, 28, 0.72);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.02);
-        color: #eaf2ff;
-        text-align: center;
-        backdrop-filter: blur(8px);
-        animation: fadeIn 0.9s ease;
-    }
-    @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(8px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
+        .intro-box {
+            width: 86%;
+            max-width: 900px;
+            padding: 38px;
+            border-radius: 16px;
+            background: rgba(12, 18, 28, 0.72);
+            color: #eaf2ff;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
 
-    .intro-title { font-size: 46px; font-weight: 800; margin-bottom: 6px; letter-spacing: 0.6px; }
-    .intro-subtitle { font-size: 20px; color: #cfe8ff; margin-bottom: 18px; }
-    .intro-text { font-size: 16px; color: #d7e9ff; line-height: 1.6; margin-bottom: 10px; }
-    .team-title { margin-top: 18px; font-size: 18px; color: #7fe3ff; font-weight: 700; }
-    .team-names { margin-top: 8px; font-size: 15px; color: #d6e9ff; line-height: 1.7; }
+        .intro-title { font-size: 46px; font-weight: 800; margin-bottom: 6px; }
+        .intro-text { font-size: 17px; line-height: 1.6; margin-bottom: 14px; }
+        .team-title { margin-top: 15px; font-weight: 700; color:#7fe3ff; }
+        .team-names { margin-top: 8px; font-size: 15px;}
 
-    .enter-btn {
-        margin-top: 18px;
-        display:inline-block;
-        padding: 10px 26px;
-        border-radius: 28px;
-        background: linear-gradient(90deg,#00c2ff,#0066ff);
-        color: #fff !important;
-        font-weight: 700;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        box-shadow: 0 8px 30px rgba(0,100,255,0.16);
-        text-decoration: none;
-    }
+        .enter-btn {
+            padding: 10px 26px;
+            border-radius: 28px;
+            background: linear-gradient(90deg,#00c2ff,#0066ff);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        </style>
 
-    /* Keep Streamlit top bar visible but subtle */
-    .css-1v3fvcr.egzxvld0 { background: transparent; } /* optional depending on Streamlit version */
-    </style>
+        <div class="fullscreen-wrapper">
+            <div class="intro-box">
 
-    <div class="fullscreen-wrapper">
-        <div class="intro-box">
-            <div class="intro-title">Calculator Suite</div>
-            <div class="intro-subtitle">Fugacity &amp; Fugacity Coefficient (Pitzer Correlation)</div>
+                <div class="intro-title">Calculator Suite</div>
 
-            <div class="intro-text">
-                A fully interactive tool for predicting real-gas behavior using the <b>Pitzer virial method</b>.
-                Useful for thermodynamics, VLE, and high-pressure gas calculations.
+                <div class="intro-text">
+                    A fully interactive tool for predicting real-gas behavior using the
+                    <b>Pitzer virial method</b>.
+                </div>
+
+                <div class="intro-text">
+                    Computes <b>fugacity (f)</b>, <b>fugacity coefficient (φ)</b>,
+                    reduced properties, and Pitzer second virial coefficients.
+                </div>
+
+                <div class="team-title">Developed By</div>
+                <div class="team-names">
+                    Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada ·
+                    Rafaela Villas · Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
+                </div>
+
+                <br/>
+                <a class="enter-btn" href="#">Enter Calculator</a>
+
             </div>
-
-            <div class="intro-text">
-                Computes <b>fugacity (f)</b>, <b>fugacity coefficient (φ)</b>, reduced properties,
-                and Pitzer second virial coefficients.
-            </div>
-
-            <div class="team-title">Developed By</div>
-            <div class="team-names">
-                Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada · Rafaela Villas · Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
-            </div>
-
-            <br/>
-            <!-- The HTML button is decorative; we use a Streamlit button to trigger entry below -->
-            <a class="enter-btn" href="#" onclick="window.scrollTo(0,document.body.scrollHeight);">Enter Calculator</a>
         </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
+        """,
+        unsafe_allow_html=True,
     )
 
-    # Use a Streamlit button (outside the raw HTML) that toggles the intro off.
-    # Place it visually under the overlay — user will click this visible Streamlit button.
+    # Functional Streamlit button (must remain)
     if st.button("🚀 Enter Fugacity Calculator", key="enter_calc"):
         st.session_state.show_intro = False
         st.experimental_rerun()
 
-    # Stop further rendering while intro is active
     st.stop()
+
 
 # -----------------------------------------
 # MAIN APP (runs only after intro closed)
