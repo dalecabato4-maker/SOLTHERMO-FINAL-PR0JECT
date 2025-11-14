@@ -223,7 +223,7 @@ if multi_calc:
                 ("padding", "6px 10px")
             ]},
             {"selector": "tbody tr:hover td", "props": [
-                ("background-color", "#E3F2FD")
+                ("background-color", "#172630")
             ]}
         ])
 
