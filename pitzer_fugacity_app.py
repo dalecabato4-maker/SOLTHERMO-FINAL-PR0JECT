@@ -21,67 +21,67 @@ if "show_intro" not in st.session_state:
 
 if st.session_state.show_intro:
 
+    st.set_page_config(layout="wide")  # <-- ensures max-width page
+
     st.markdown("""
     <style>
-    /* Remove Streamlit default padding */
-    .main > div {
-        padding-top: 0rem;
+    /* Make Streamlit main container full width */
+    .block-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
     }
 
-    /* Full-screen container */
-    .fullscreen-bg {
-        position: fixed;
-        top: 0; left: 0;
+    /* Full-screen background */
+    body {
+        margin: 0;
+        padding: 0;
+        background: url("https://images.unsplash.com/photo-1581091012184-5c8f8b9c3f65?auto=format&fit=crop&w=1600&q=80")
+                    center/cover no-repeat fixed !important;
+    }
+
+    /* Flex center full-screen wrapper */
+    .fullscreen-wrapper {
         width: 100vw;
         height: 100vh;
-
-        background: url('https://images.unsplash.com/photo-1581091012184-5c8f8b9c3f65?auto=format&fit=crop&w=1400&q=60')
-                    center/cover no-repeat fixed;
-
         display: flex;
         justify-content: center;
         align-items: center;
-
-        backdrop-filter: brightness(0.45);
-        z-index: -1;
     }
 
-    /* Centered content box */
+    /* The central intro box */
     .intro-box {
-        width: 75%;
+        width: 70%;
         max-width: 900px;
 
-        background: rgba(0, 0, 0, 0.60);
-        padding: 50px 70px;
-        border-radius: 25px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 50px;
+        border-radius: 20px;
         text-align: center;
         color: white;
 
-        animation: fadein 1.2s ease-in-out;
+        animation: fadeIn 1s ease-in-out;
     }
 
-    /* Title */
     .intro-title {
-        font-size: 60px;
+        font-size: 55px;
         font-weight: 900;
         margin-bottom: 10px;
     }
 
-    /* Subtitle */
     .intro-subtitle {
         font-size: 28px;
         margin-bottom: 25px;
-        color: #e0e0e0;
     }
 
     .intro-text {
         font-size: 20px;
-        line-height: 1.7;
-        margin-bottom: 20px;
+        line-height: 1.6;
+        margin-top: 10px;
     }
 
     .team-title {
-        margin-top: 30px;
+        margin-top: 35px;
         font-size: 30px;
         font-weight: 700;
     }
@@ -89,54 +89,53 @@ if st.session_state.show_intro:
     .team-names {
         font-size: 20px;
         line-height: 1.7;
-        margin-bottom: 10px;
     }
 
-    /* Fade-in animation */
-    @keyframes fadein {
+    @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to   { opacity: 1; transform: translateY(0); }
     }
-
     </style>
 
-    <div class="fullscreen-bg"></div>
+    <div class="fullscreen-wrapper">
+        <div class="intro-box">
 
-    <div class="intro-box">
-        <h1 class="intro-title">⚗️ Chemical Engineering Calculator Suite</h1>
-        <div class="intro-subtitle">Fugacity & Fugacity Coefficient (Pitzer Correlation)</div>
+            <div class="intro-title">Calculator Suite</div>
+            <div class="intro-subtitle">Fugacity & Fugacity Coefficient<br>(Pitzer Correlation)</div>
 
-        <p class="intro-text">
-            A full-screen interactive calculator for real-gas behavior using the
-            <b>Pitzer Virial Equation</b>. Designed for chemical engineering
-            students, process engineers, and researchers dealing with VLE,
-            thermodynamics, and high-pressure systems.
-        </p>
+            <p class="intro-text">
+                A full-screen interactive calculator for real-gas behavior using
+                the <b>Pitzer Virial Equation</b>. Perfect for chemical engineering
+                students, process engineers, and researchers working on
+                thermodynamics, VLE, and high-pressure systems.
+            </p>
 
-        <p class="intro-text">
-            Compute **Fugacity**, **Fugacity Coefficient**, **Reduced Properties**,
-            and **Pitzer Second Virial Coefficients** with ease.
-        </p>
+            <p class="intro-text">
+                Computes <b>Fugacity</b>, <b>Fugacity Coefficient</b>, reduced properties,
+                and <b>Pitzer Second Virial Coefficients</b>.
+            </p>
 
-        <h2 class="team-title">Developed By</h2>
-        <div class="team-names">
-            Dale CLarenz Cabato<br>
-            Francisco Andrei Joseph Laudez<br>
-            Aliona Tejada<br>
-            Rafaela Villas<br>
-            Archie Plata<br>
-            Andrea Hernandez<br>
-            Armela Martin<br>
-            Dimple Padilla
+            <div class="team-title">Developed By</div>
+            <div class="team-names">
+                Dale Clarenz Cabato<br>
+                Francisco Andrei Joseph Laudez<br>
+                Aliona Tejada<br>
+                Rafaela Villas<br>
+                Archie Plata<br>
+                Andrea Hernandez<br>
+                Armela Martin<br>
+                Dimple Padilla
+            </div>
+
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")
-    st.write("")
-
-    if st.button("🚀 Enter Fugacity Calculator"):
-        st.session_state.show_intro = False
+    # Center the button below the fullscreen area
+    col1, col2, col3 = st.columns([2,1,2])
+    with col2:
+        if st.button("🚀 Enter Fugacity Calculator"):
+            st.session_state.show_intro = False
 
     st.stop()
 
