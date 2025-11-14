@@ -4,30 +4,54 @@ import math
 from pathlib import Path
 import numpy as np
 
-
 st.set_page_config(layout="wide")
 
+# Initialize intro state
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
+# INTRO SCREEN
 if st.session_state.show_intro:
 
     st.markdown(
 """
 <style>
+/* Reset padding and margins for full-screen effect */
 .block-container {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
     max-width: 100% !important;
 }
-body, html {
+
+body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a2e, #16213e);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease infinite;
     overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
 }
+
+/* Background gradient animation */
+@keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Floating animation */
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+
 .fullscreen-wrapper {
     position: fixed;
     top: 0;
@@ -37,60 +61,95 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0d0d0d;
     color: white;
-    font-family: 'Arial';
 }
+
 .intro-box {
     width: 80%;
-    max-width: 1000px;
-    background: rgba(0,0,0,0.6);
+    max-width: 900px;
+    background: rgba(0,0,0,0.55);
     padding: 50px;
-    border-radius: 20px;
+    border-radius: 22px;
     text-align: center;
-    max-height: 90vh;
-    overflow-y: auto;
+    backdrop-filter: blur(12px);
+    animation: fadeIn 1.4s ease, float 6s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
+
+/* TITLES */
 .intro-title {
-    font-size: 50px;
+    font-size: 55px;
     font-weight: 900;
-    margin-bottom: 10px;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+    text-shadow: 0px 0px 15px rgba(255,255,255,0.25);
 }
+
 .intro-subtitle {
-    font-size: 25px;
-    margin-bottom: 20px;
+    font-size: 26px;
+    opacity: 0.85;
+    margin-bottom: 25px;
 }
+
+/* TEXT */
 .intro-text {
     font-size: 20px;
-    line-height: 1.6;
+    line-height: 1.7;
+    opacity: 0.95;
     margin-bottom: 15px;
 }
+
+/* TEAM SECTION */
 .team-title {
     font-size: 28px;
     font-weight: bold;
-    margin-top: 25px;
+    margin-top: 30px;
+    color: #00d4ff;
+    text-shadow: 0px 0px 10px rgba(0,212,255,0.4);
 }
+
 .team-names {
     font-size: 20px;
     line-height: 1.7;
     margin-top: 10px;
 }
+
+/* BUTTON STYLE */
+.enter-button {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #00d4ff, #0077ff);
+    padding: 14px 40px;
+    border-radius: 30px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white !important;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,162,255,0.5);
+}
+
+.enter-button:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 25px rgba(0,162,255,0.9);
+}
 </style>
 
 <div class="fullscreen-wrapper">
     <div class="intro-box">
-        
+
         <div class="intro-title">Calculator Suite</div>
         <div class="intro-subtitle">Fugacity & Fugacity Coefficient<br>(Pitzer Correlation)</div>
 
         <p class="intro-text">
-            A full-screen interactive calculator for real-gas behavior using
-            the <b>Pitzer Virial Equation</b>.
+            A fully interactive tool for predicting real-gas behavior using the 
+            <b>Pitzer Virial Method</b>.
         </p>
 
         <p class="intro-text">
-            Computes <b>Fugacity</b>, <b>Fugacity Coefficient</b>,
-            reduced properties, and <b>Pitzer Second Virial Coefficients</b>.
+            This calculator provides <b>Fugacity (f)</b>, <b>Fugacity Coefficient (φ)</b>,
+            reduced properties, and Pitzer's <b>Second Virial Coefficients</b>.
         </p>
 
         <div class="team-title">Developed By</div>
@@ -110,7 +169,10 @@ body, html {
 """,
 unsafe_allow_html=True)
 
-    if st.button("🚀 Enter Fugacity Calculator", use_container_width=True):
+    # Streamlit replacement button under the HTML overlay
+    enter = st.button("🚀 Enter Calculator", key="enter_calc")
+
+    if enter:
         st.session_state.show_intro = False
 
     st.stop()
