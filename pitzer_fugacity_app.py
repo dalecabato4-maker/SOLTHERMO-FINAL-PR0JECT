@@ -4,9 +4,6 @@ import math
 from pathlib import Path
 import numpy as np
 
-# ------------------------------------------------------------
-# Page Configuration MUST be first Streamlit command
-# ------------------------------------------------------------
 st.set_page_config(layout="wide")
 
 if "show_intro" not in st.session_state:
