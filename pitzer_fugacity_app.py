@@ -5,77 +5,7 @@ import pandas as pd
 # ------------------------------------------------------------
 # Page Configuration
 # ------------------------------------------------------------
-st.set_page_config(
-    page_title="Fugacity Calculator (Pitzer Correlation)",
-    layout="centered"
-)
-
-# ------------------------------------------------------------
-# GLOBAL CUSTOM CSS
-# ------------------------------------------------------------
-st.markdown("""
-<style>
-/* GLOBAL FONT & BACKGROUND */
-html, body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f4f6f9;
-}
-
-/* HEADER BAR */
-.main-header {
-    background: linear-gradient(90deg, #004aad, #007bff);
-    padding: 25px;
-    margin: -90px 0 30px 0;
-    border-radius: 0 0 18px 18px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-.main-header h1 {
-    margin: 0;
-    font-size: 38px;
-    font-weight: 800;
-}
-
-/* INPUT CARDS */
-.card {
-    background: white;
-    padding: 25px 30px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-}
-
-/* BUTTON UPGRADE */
-div.stButton > button {
-    background: linear-gradient(90deg, #007bff, #00aaff);
-    color: white;
-    padding: 10px 26px;
-    border-radius: 8px;
-    font-size: 18px;
-    border: none;
-    font-weight: 600;
-}
-div.stButton > button:hover {
-    transform: scale(1.04);
-    transition: 0.2s;
-}
-
-/* HOMEPAGE TITLE */
-.home-title {
-    font-size: 48px;
-    font-weight: 900;
-    color: #007bff;
-    text-shadow: 2px 2px 10px rgba(0,123,255,0.25);
-}
-
-/* RESULTS TABLE */
-thead th {
-    background-color: #004aad !important;
-    color: white !important;
-}
-</style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
 
 # ------------------------------------------------------------
 # Session State: Homepage Toggle
@@ -87,26 +17,20 @@ if "show_homepage" not in st.session_state:
 # HOMEPAGE INTRO SCREEN
 # ------------------------------------------------------------
 if st.session_state.show_homepage:
-
     st.markdown("""
-    <div style="text-align:center; padding:60px;">
-        <h1 class="home-title">⚗️ Fugacity Calculator Suite</h1>
-
-        <p style="font-size:20px; max-width:720px; margin:auto;">
-            Welcome to the interactive calculator for estimating fugacity and fugacity coefficients
-            using the <b>Pitzer virial correlation</b>. This tool is designed for chemical engineers,
-            researchers, and students working with real-gas behavior and VLE systems.
+    <div style="text-align:center; padding:40px;">
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite</h1>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl (1957).
         </p>
-
         <br/>
-
-        <h3 style="color:#007bff;">Developed By</h3>
-        <p style="font-size:17px; line-height:1.6;">
-            Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada ·  
-            Rafaela Villas · Archie Plata · Andrea Hernandez ·  
-            Armela Martin · Dimple Padilla
+        <h3 style="color:#00aaff;">Developed By:</h3>
+        <p style="font-size:16px;">
+            Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada · Rafaela Villas ·  
+            Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
         </p>
-
         <br/><br/>
     </div>
     """, unsafe_allow_html=True)
@@ -115,18 +39,6 @@ if st.session_state.show_homepage:
         st.session_state.show_homepage = False
 
     st.stop()
-
-# ------------------------------------------------------------
-# Header Section with Gradient Bar
-# ------------------------------------------------------------
-st.markdown("""
-<div class="main-header">
-    <h1>🌡️ Fugacity & Fugacity Coefficient Calculator</h1>
-    <p style="margin-top:6px; font-size:18px;">
-        Pitzer Virial Correlation • Multi-Species Support • Real Gas Thermodynamics
-    </p>
-</div>
-""", unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Gas Database (Critical Constants)
@@ -162,23 +74,26 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
     }
 
 # ------------------------------------------------------------
+# Header Section
+# ------------------------------------------------------------
+st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
+st.markdown("""
+This interactive app estimates *fugacity* and *fugacity coefficient (φ)* for selected gases  
+using the *Pitzer correlation*. It supports both pure gases and mixtures (via mole fraction input).
+""")
+
+# ------------------------------------------------------------
 # Multi-Species Input Section
 # ------------------------------------------------------------
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-st.header("🧪 Multi-Species Fugacity Calculator")
+st.header("🧪 Multi-Species Fugacity Calculation")
 
-num_species = st.selectbox("Number of species:", [1, 2, 3])
+num_species = st.selectbox("Number of species to calculate:", [1, 2, 3])
 
 species_inputs = []
 for i in range(num_species):
     st.subheader(f"Species {i+1}")
-    gas = st.selectbox(f"Gas {i+1}", list(gases.keys()), key=f"gas_{i}")
-    mole_frac = st.number_input(
-        f"Mole fraction y{i+1}",
-        min_value=0.0, max_value=1.0,
-        value=1.0 if i == 0 else 0.0,
-        step=0.01, key=f"y_{i}"
-    )
+    gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
+    mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
     species_inputs.append({
         "name": gas,
         "Tc": gases[gas]["Tc"],
@@ -187,30 +102,26 @@ for i in range(num_species):
         "y": mole_frac
     })
 
-st.markdown("</div>", unsafe_allow_html=True)
-
 # ------------------------------------------------------------
-# Operating Conditions
+# Required Operating Conditions
 # ------------------------------------------------------------
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-st.header("🌡️ Operating Conditions")
+st.header("🌡️ Required Operating Conditions")
 
 col1, col2 = st.columns(2)
 with col1:
-    T = st.number_input("Temperature (T) [K]", value=300.0)
+    T = st.number_input("Temperature (T) [K]", min_value=1.0, value=300.0, step=0.1)
 with col2:
-    P = st.number_input("Pressure (P) [bar]", value=10.0)
+    P = st.number_input("Pressure (P) [bar]", min_value=0.01, value=10.0, step=0.1)
 
-multi_calc = st.button("🧮 Calculate Fugacity & φ")
-st.markdown("</div>", unsafe_allow_html=True)
+multi_calc = st.button("🧮 Calculate Fugacity and φ")
 
 # ------------------------------------------------------------
-# Multi-Species Results
+# Multi-Species Calculation & Results
 # ------------------------------------------------------------
 if multi_calc:
     total_y = sum([s["y"] for s in species_inputs])
     if total_y > 1.0:
-        st.error("❌ Total mole fraction exceeds 1. Fix your inputs.")
+        st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
     else:
         results = []
         for s in species_inputs:
@@ -229,17 +140,25 @@ if multi_calc:
 
         df_multi = pd.DataFrame(results)
 
-        st.success("✅ Fugacity and φ calculation complete!")
-        st.dataframe(df_multi, use_container_width=True)
+        st.success("✅ Multi-species calculation completed!")
+        st.dataframe(
+            df_multi.style.set_table_styles([
+                {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
+                {"selector": "tbody td", "props": [("background-color", "#F5F7FA"), ("text-align", "center"), ("padding", "6px 10px")]},
+                {"selector": "tbody tr:hover td", "props": [("background-color", "#E3F2FD")]}
+            ]),
+            use_container_width=True
+        )
+
+        st.caption("Each fugacity value is corrected by mole fraction (f × y).")
 
 # ------------------------------------------------------------
 # Footer Notes
 # ------------------------------------------------------------
 st.markdown("""
-<br><br>
 ---
-**References**  
-- Pitzer, K.S. & Curl, R.F. Jr. (1957). *Journal of the American Chemical Society*, **79**, 2369.  
-- Smith, Van Ness & Abbott. *Introduction to Chemical Engineering Thermodynamics*.
+**References:**  
+- Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, **79**, 2369.  
+- Smith, J.M., Van Ness, H.C., & Abbott, M.M. *Introduction to Chemical Engineering Thermodynamics* (8th Ed.).
 """)
 
