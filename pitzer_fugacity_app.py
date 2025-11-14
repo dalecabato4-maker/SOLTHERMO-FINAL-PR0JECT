@@ -186,7 +186,7 @@ if multi_calc:
         df_multi = pd.DataFrame(results)
 
         st.success("✅ Multi-species calculation completed!")
-      st.dataframe(
+   st.dataframe(
     df_multi.style.set_table_styles([
         {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
         {"selector": "tbody td", "props": [("background-color", "#E3F2FD"), ("text-align", "center"), ("padding", "6px 10px")]},
