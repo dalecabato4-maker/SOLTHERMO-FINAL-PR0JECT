@@ -21,7 +21,7 @@ if "show_intro" not in st.session_state:
 
 if st.session_state.show_intro:
 
-  st.markdown("""
+st.markdown("""
 <style>
 .intro-box {
     width: 80%;
@@ -91,6 +91,7 @@ if st.session_state.show_intro:
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
     if st.button("🚀 Enter Fugacity Calculator"):
         st.session_state.show_intro = False
