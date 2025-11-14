@@ -23,82 +23,83 @@ if "show_intro" not in st.session_state:
 # -----------------------------------------
 if st.session_state.show_intro:
 
-    st.markdown(
-        """
-        <style>
-        html, body, [class*="css"] { margin:0; padding:0; }
-        .fullscreen-wrapper {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #0b0f17, #0f1720, #0d1b2a);
-            background-size: 300% 300%;
-            animation: gradientShift 12s ease infinite;
-            z-index: 9999;
-        }
-        @keyframes gradientShift {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+st.markdown(
+    """
+<style>
+html, body, [class*="css"] { margin:0; padding:0; }
+.fullscreen-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0b0f17, #0f1720, #0d1b2a);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease infinite;
+    z-index: 9999;
+}
+@keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
 
-        .intro-box {
-            width: 86%;
-            max-width: 900px;
-            padding: 38px;
-            border-radius: 16px;
-            background: rgba(12, 18, 28, 0.72);
-            color: #eaf2ff;
-            text-align: center;
-            backdrop-filter: blur(8px);
-        }
+.intro-box {
+    width: 86%;
+    max-width: 900px;
+    padding: 38px;
+    border-radius: 16px;
+    background: rgba(12, 18, 28, 0.72);
+    color: #eaf2ff;
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
 
-        .intro-title { font-size: 46px; font-weight: 800; margin-bottom: 6px; }
-        .intro-text { font-size: 17px; line-height: 1.6; margin-bottom: 14px; }
-        .team-title { margin-top: 15px; font-weight: 700; color:#7fe3ff; }
-        .team-names { margin-top: 8px; font-size: 15px;}
+.intro-title { font-size: 46px; font-weight: 800; margin-bottom: 6px; }
+.intro-text { font-size: 17px; line-height: 1.6; margin-bottom: 14px; }
+.team-title { margin-top: 15px; font-weight: 700; color:#7fe3ff; }
+.team-names { margin-top: 8px; font-size: 15px;}
 
-        .enter-btn {
-            padding: 10px 26px;
-            border-radius: 28px;
-            background: linear-gradient(90deg,#00c2ff,#0066ff);
-            color: #fff;
-            font-weight: 700;
-            text-decoration: none;
-        }
-        </style>
+.enter-btn {
+    padding: 10px 26px;
+    border-radius: 28px;
+    background: linear-gradient(90deg,#00c2ff,#0066ff);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+</style>
 
-        <div class="fullscreen-wrapper">
-            <div class="intro-box">
+<div class="fullscreen-wrapper">
+    <div class="intro-box">
 
-                <div class="intro-title">Calculator Suite</div>
+        <div class="intro-title">Calculator Suite</div>
 
-                <div class="intro-text">
-                    A fully interactive tool for predicting real-gas behavior using the
-                    <b>Pitzer virial method</b>.
-                </div>
-
-                <div class="intro-text">
-                    Computes <b>fugacity (f)</b>, <b>fugacity coefficient (φ)</b>,
-                    reduced properties, and Pitzer second virial coefficients.
-                </div>
-
-                <div class="team-title">Developed By</div>
-                <div class="team-names">
-                    Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada ·
-                    Rafaela Villas · Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
-                </div>
-
-                <br/>
-                <a class="enter-btn" href="#">Enter Calculator</a>
-
-            </div>
+        <div class="intro-text">
+            A fully interactive tool for predicting real-gas behavior using the
+            <b>Pitzer virial method</b>.
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+
+        <div class="intro-text">
+            Computes <b>fugacity (f)</b>, <b>fugacity coefficient (φ)</b>,
+            reduced properties, and Pitzer second virial coefficients.
+        </div>
+
+        <div class="team-title">Developed By</div>
+        <div class="team-names">
+            Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada ·
+            Rafaela Villas · Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
+        </div>
+
+        <br/>
+        <a class="enter-btn" href="#">Enter Calculator</a>
+
+    </div>
+</div>
+    """,
+    unsafe_allow_html=True,
+)
+
 
     # Functional Streamlit button (must remain)
     if st.button("🚀 Enter Fugacity Calculator", key="enter_calc"):
