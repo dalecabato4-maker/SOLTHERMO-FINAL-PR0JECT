@@ -46,7 +46,7 @@ st.markdown("""
 # Sidebar
 # ------------------------------------------------------------
 with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Thermodynamics_diagram.svg/1200px-Thermodynamics_diagram.svg.png", width=200)
+    st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
     st.info("This calculator uses the Pitzer correlation to estimate fugacity and fugacity coefficients for gases under non-ideal conditions.")
     st.markdown("---")
