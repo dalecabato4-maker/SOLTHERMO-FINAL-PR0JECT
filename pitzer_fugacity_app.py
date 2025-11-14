@@ -1,57 +1,11 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 # ------------------------------------------------------------
 # Page Configuration
 # ------------------------------------------------------------
 st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
-
-# ------------------------------------------------------------
-# Custom CSS Styling
-# ------------------------------------------------------------
-st.markdown("""
-    <style>
-        html, body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f4f8;
-        }
-        h1, h2, h3 {
-            color: #1E88E5;
-        }
-        .stNumberInput input {
-            background-color: #ffffff;
-            border: 1px solid #1E88E5;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        div.stButton > button {
-            background-color: #1E88E5;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        div.stButton > button:hover {
-            background-color: #1565C0;
-        }
-        .block-container {
-            padding-top: 2rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# ------------------------------------------------------------
-# Sidebar
-# ------------------------------------------------------------
-with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Thermodynamics_diagram.svg/1200px-Thermodynamics_diagram.svg.png", width=200)
-    st.markdown("### 📘 About This App")
-    st.info("This calculator uses the Pitzer correlation to estimate fugacity and fugacity coefficients for gases under non-ideal conditions.")
-    st.markdown("---")
-    st.markdown("Made with ❤️ by Chemical Engineering Students")
 
 # ------------------------------------------------------------
 # Session State: Homepage Toggle
@@ -155,9 +109,9 @@ st.header("🌡️ Required Operating Conditions")
 
 col1, col2 = st.columns(2)
 with col1:
-    T = st.number_input("Temperature (T) [K]", min_value=1.0, value=300.0, step=0.1, help="Enter temperature in Kelvin")
+    T = st.number_input("Temperature (T) [K]", min_value=1.0, value=300.0, step=0.1)
 with col2:
-    P = st.number_input("Pressure (P) [bar]", min_value=0.01, value=10.0, step=0.1, help="Enter pressure in bar")
+    P = st.number_input("Pressure (P) [bar]", min_value=0.01, value=10.0, step=0.1)
 
 multi_calc = st.button("🧮 Calculate Fugacity and φ")
 
@@ -198,18 +152,12 @@ if multi_calc:
 
         st.caption("Each fugacity value is corrected by mole fraction (f × y).")
 
-# 📊 Bar Chart Visualization using Streamlit
-chart_df = pd.DataFrame({
-    "Gas": [r["Gas"] for r in results],
-    "Fugacity (bar)": [float(r["Fugacity (bar)"]) for r in results]
-}).set_index("Gas")
-
-st.bar_chart(chart_df)
-
-        # 📋 Download Button
-st.download_button(
-            label="📥 Download Results as CSV",
-            data=df_multi.to_csv(index=False).encode("utf-8"),
-            file_name="fugacity_results.csv",
-            mime="text/csv"
-        )
+# ------------------------------------------------------------
+# Footer Notes
+# ------------------------------------------------------------
+st.markdown("""
+---
+**References:**  
+- Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, **79**, 2369.  
+- Smith, J.M., Van Ness, H.C., & Abbott, M.M. *Introduction to Chemical Engineering Thermodynamics* (8th Ed.).
+""")
