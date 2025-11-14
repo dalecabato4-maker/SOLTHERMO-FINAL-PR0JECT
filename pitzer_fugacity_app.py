@@ -198,17 +198,13 @@ if multi_calc:
 
         st.caption("Each fugacity value is corrected by mole fraction (f × y).")
 
-        # 📊 Bar Chart Visualization
-        fig, ax = plt.subplots()
-        gases_list = [r["Gas"] for r in results]
-        fugacities = [float(r["Fugacity (bar)"]) for r in results]
-        ax.bar(gases_list, fugacities, color="#1E88E5")
-        ax.set_ylabel("Fugacity (bar)")
-        ax.set_title("Fugacity per Species")
-        ax.set_ylim(0, max(fugacities) * 1.2)
-        for i, v in enumerate(fugacities):
-            ax.text(i, v + 0.01, f"{v:.2f}", ha='center', va='bottom', fontsize=9)
-        st.pyplot(fig)
+# 📊 Bar Chart Visualization using Streamlit
+chart_df = pd.DataFrame({
+    "Gas": [r["Gas"] for r in results],
+    "Fugacity (bar)": [float(r["Fugacity (bar)"]) for r in results]
+}).set_index("Gas")
+
+st.bar_chart(chart_df)
 
         # 📋 Download Button
         st.download_button(
