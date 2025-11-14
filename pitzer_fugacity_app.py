@@ -18,9 +18,7 @@ chemical_css = """
 <style>
 /* Background with chemical engineering blueprint pattern */
 .stApp {
-    background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-                url('https://i.imgur.com/0ZfS9ZQ.png');
-    background-size: cover;
+    background: linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90));
 }
 
 /* Title styling */
@@ -33,7 +31,7 @@ h1 {
 /* Sidebar Styling */
 section[data-testid="stSidebar"] > div:first-child {
     background-color: #E3F2FD;
-    background-image: url('https://i.imgur.com/YpZPpXE.png');
+    background-image: none;
     background-size: 200px;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -167,3 +165,4 @@ st.markdown("""
 
 🧪 Designed for **Chemical Engineering students & researchers**.
 """)
+
