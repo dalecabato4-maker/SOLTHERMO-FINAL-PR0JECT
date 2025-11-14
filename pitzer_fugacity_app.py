@@ -3,63 +3,84 @@ import numpy as np
 import pandas as pd
 
 # ------------------------------------------------------------
-# Page Configuration
+# PAGE CONFIGURATION WITH CHEMICAL ENGINEERING THEME
 # ------------------------------------------------------------
 st.set_page_config(
     page_title="Fugacity Calculator (Pitzer Correlation)",
-    layout="centered"
+    layout="centered",
+    page_icon="⚗️"
 )
 
 # ------------------------------------------------------------
-# Custom CSS for Material Design
+# CUSTOM CHEMICAL ENGINEERING CSS DESIGN
 # ------------------------------------------------------------
-st.markdown("""
+chemical_css = """
 <style>
-/* Main background */
-.main {
-    background-color: #F3F6F9;
+/* Background with chemical engineering blueprint pattern */
+.stApp {
+    background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+                url('https://i.imgur.com/0ZfS9ZQ.png');
+    background-size: cover;
 }
 
-/* Card container */
-.material-card {
-    background-color: white;
-    padding: 20px 25px;
+/* Title styling */
+h1 {
+    color: #0D47A1 !important;
+    text-shadow: 1px 1px 2px #90CAF9;
+    font-weight: 800 !important;
+}
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] > div:first-child {
+    background-color: #E3F2FD;
+    background-image: url('https://i.imgur.com/YpZPpXE.png');
+    background-size: 200px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    border-right: 3px solid #64B5F6;
+}
+
+/* Input fields */
+input, select {
+    border-radius: 10px !important;
+    border: 1px solid #64B5F6 !important;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #1565C0;
+    color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    margin-top: 18px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+}
+.stButton>button:hover {
+    background-color: #0D47A1;
 }
 
-/* Section headers */
-.section-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #0D47A1;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #1E88E5;
-    margin-bottom: 10px;
+/* Data table */
+.dataframe tbody tr:hover {
+    background-color: #BBDEFB !important;
 }
-
-/* Sidebar style */
-.sidebar .sidebar-content {
-    background-color: #E3F2FD !important;
-}
-
 </style>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(chemical_css, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
-# Header Section
+# HEADER WITH CHE THEME
 # ------------------------------------------------------------
-st.markdown("<h1 style='color:#0D47A1;'>🌡️ Fugacity & Fugacity Coefficient Calculator</h1>", 
-            unsafe_allow_html=True)
-
+st.title("⚗️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
 st.markdown("""
-This interactive tool calculates **fugacity** and the **fugacity coefficient (φ)**  
-using the **Pitzer correlation**. Supports pure gases and mixtures.
+This app estimates **fugacity** and **fugacity coefficient (φ)** using the **Pitzer correlation**.
+
+Designed with a **Chemical Engineering theme** — featuring blueprint textures, process diagrams,
+and modern UI styling inspired by plant control panels and P&ID aesthetics.
 """)
 
 # ------------------------------------------------------------
-# Gas Database
+# GAS DATABASE
 # ------------------------------------------------------------
 gases = {
     "Carbon Dioxide (CO₂)": {"Tc": 304.2, "Pc": 73.8, "omega": 0.225},
@@ -72,71 +93,51 @@ gases = {
 }
 
 # ------------------------------------------------------------
-# Sidebar: Gas Selection
+# SIDEBAR WITH CHEMICAL ENGINEERING LOOK
 # ------------------------------------------------------------
-st.sidebar.header("⚙️ Gas Selection & Constants")
-selected_gas = st.sidebar.selectbox("Select a gas:", list(gases.keys()))
+st.sidebar.header("🛢️ Gas Selection & Critical Properties")
+selected_gas = st.sidebar.selectbox("Select a Gas:", list(gases.keys()))
 
 Tc = st.sidebar.number_input("Critical Temperature Tc (K)", value=gases[selected_gas]["Tc"], step=0.1)
 Pc = st.sidebar.number_input("Critical Pressure Pc (bar)", value=gases[selected_gas]["Pc"], step=0.1)
-omega = st.sidebar.number_input("Acentric Factor ω", value=gases[selected_gas]["omega"], step=0.001)
+omega = st.sidebar.number_input("Acentric Factor (ω)", value=gases[selected_gas]["omega"], step=0.001)
 
-R = 0.08314  # L·bar/(mol·K)
-
-# ------------------------------------------------------------
-# Input Section
-# ------------------------------------------------------------
-with st.container():
-    st.markdown("<div class='material-card'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>🧮 Input Conditions</div>", unsafe_allow_html=True)
-
-    T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
-    P = st.number_input("Pressure (P) [bar]", value=10.0, step=0.1)
-    y = st.number_input("Concentration / Mole Fraction (y)", value=1.0, min_value=0.0, max_value=1.0, step=0.01)
-
-    calculate = st.button("🧮 Calculate Fugacity and φ", type="primary")
-    st.markdown("</div>", unsafe_allow_html=True)
+R = 0.08314
 
 # ------------------------------------------------------------
-# Pitzer Correlation Function
+# USER INPUTS
+# ------------------------------------------------------------
+st.header("🔧 Operating Conditions")
+T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
+P = st.number_input("Pressure (P) [bar]", value=10.0, step=0.1)
+y = st.number_input("Mole Fraction (y)", value=1.0, min_value=0.0, max_value=1.0, step=0.01)
+
+calculate = st.button("🧮 Calculate Fugacity & φ")
+
+# ------------------------------------------------------------
+# PITZER EQUATION FUNCTION
 # ------------------------------------------------------------
 def pitzer_fugacity(T, P, Tc, Pc, omega):
     Tr = T / Tc
     Pr = P / Pc
-
     B0 = 0.083 - (0.422 / Tr**1.6)
     B1 = 0.139 - (0.172 / Tr**4.2)
-
     ln_phi = (Pr / Tr) * (B0 + omega * B1)
     phi = np.exp(ln_phi)
     f = phi * P
-
-    return {
-        "Tr": Tr,
-        "Pr": Pr,
-        "B0": B0,
-        "B1": B1,
-        "phi": phi,
-        "fugacity": f
-    }
+    return {"Tr": Tr, "Pr": Pr, "B0": B0, "B1": B1, "phi": phi, "fugacity": f}
 
 # ------------------------------------------------------------
-# Results Section
+# RESULTS
 # ------------------------------------------------------------
 if calculate:
-
     results = pitzer_fugacity(T, P, Tc, Pc, omega)
     fugacity_adjusted = results["fugacity"] * y
-
-    st.markdown("<div class='material-card'>", unsafe_allow_html=True)
-    st.success("Calculation completed successfully!")
-
-    st.markdown("<div class='section-title'>📊 Results</div>", unsafe_allow_html=True)
 
     df_results = pd.DataFrame({
         "Parameter": [
             "Selected Gas", "Reduced Temperature (Tr)", "Reduced Pressure (Pr)",
-            "B⁰", "B¹", "Fugacity Coefficient (φ)", "Fugacity (f, bar)"
+            "B⁰", "B¹", "Fugacity Coefficient (φ)", "Fugacity (bar)"
         ],
         "Value": [
             selected_gas,
@@ -149,23 +150,20 @@ if calculate:
         ]
     })
 
-    st.dataframe(
-        df_results.style.set_table_styles([
-            {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center")]},
-            {"selector": "tbody td", "props": [("background-color", "#F9FBFD"), ("text-align", "center"), ("padding", "6px 10px")]},
-        ]).hide(axis="index"),
-        use_container_width=True
-    )
+    st.success("✔ Fugacity Computed Successfully!")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.dataframe(df_results.style.hide(axis="index"))
+
+    st.caption("Computed using the Pitzer Correlation (Pitzer & Curl, 1957)")
 
 # ------------------------------------------------------------
-# Footer
+# FOOTER WITH CHEMICAL ENGINEERING ICONS
 # ------------------------------------------------------------
 st.markdown("""
 ---
-**References:**
-- Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, 79, 2369.  
-- Smith, Van Ness, & Abbott. *Intro to Chemical Engineering Thermodynamics*.
-""")
+📘 **References**  
+- Pitzer, K.S. & Curl, R.F. (1957). *J. Am. Chem. Soc.*, 79, 2369.  
+- Smith & Van Ness — *Chemical Engineering Thermodynamics*.
 
+🧪 Designed for **Chemical Engineering students & researchers**.
+""")
