@@ -8,6 +8,40 @@ import pandas as pd
 st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
 
 # ------------------------------------------------------------
+# Session State: Homepage Toggle
+# ------------------------------------------------------------
+if "show_homepage" not in st.session_state:
+    st.session_state.show_homepage = True
+
+# ------------------------------------------------------------
+# HOMEPAGE INTRO SCREEN
+# ------------------------------------------------------------
+if st.session_state.show_homepage:
+    st.markdown("""
+    <div style="text-align:center; padding:40px;">
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite</h1>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl (1957).
+        </p>
+        <br/>
+        <h3 style="color:#00aaff;">Developed By:</h3>
+        <p style="font-size:16px;">
+            Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada · Rafaela Villas ·  
+            Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
+        </p>
+        <br/><br/>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.button("🚀 Enter Calculator"):
+        st.session_state.show_homepage = False
+        st.experimental_rerun()
+
+    st.stop()
+
+# ------------------------------------------------------------
 # Header Section
 # ------------------------------------------------------------
 st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
@@ -29,9 +63,9 @@ gases = {
     "Custom": {"Tc": 300.0, "Pc": 50.0, "omega": 0.1}
 }
 
-# ------------------------------------------
-# GAS SELECTION
-# ------------------------------------------
+# ------------------------------------------------------------
+# Sidebar: Gas Selection
+# ------------------------------------------------------------
 st.sidebar.header("⚙️ Gas Selection & Constants")
 selected_gas = st.sidebar.selectbox("Select a gas:", list(gases.keys()))
 
@@ -39,11 +73,9 @@ Tc = st.sidebar.number_input("Critical Temperature Tc (K)", value=gases[selected
 Pc = st.sidebar.number_input("Critical Pressure Pc (bar)", value=gases[selected_gas]["Pc"], step=0.1)
 omega = st.sidebar.number_input("Acentric Factor ω", value=gases[selected_gas]["omega"], step=0.001)
 
-R = 0.08314  # L·bar/(mol·K)
-
-# ------------------------------------------
-# USER INPUTS
-# ------------------------------------------
+# ------------------------------------------------------------
+# User Inputs
+# ------------------------------------------------------------
 st.header("🧮 Input Conditions")
 
 T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
@@ -58,15 +90,11 @@ calculate = st.button("🧮 Calculate Fugacity and φ")
 def pitzer_fugacity(T, P, Tc, Pc, omega):
     Tr = T / Tc
     Pr = P / Pc
-
-    # Correlations for second virial coefficients
     B0 = 0.083 - (0.422 / Tr**1.6)
     B1 = 0.139 - (0.172 / Tr**4.2)
-
     ln_phi = (Pr / Tr) * (B0 + omega * B1)
     phi = np.exp(ln_phi)
     f = phi * P
-
     return {
         "Tr": Tr,
         "Pr": Pr,
@@ -81,10 +109,8 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
 # ------------------------------------------------------------
 if calculate:
     results = pitzer_fugacity(T, P, Tc, Pc, omega)
-
     fugacity_adjusted = results["fugacity"] * y
 
-    # Create a DataFrame for clean table display
     df_results = pd.DataFrame({
         "Parameter": [
             "Selected Gas", "Reduced Temperature (Tr)", "Reduced Pressure (Pr)",
@@ -101,7 +127,6 @@ if calculate:
         ]
     })
 
-    # Table styling
     st.success("✅ Calculation completed successfully!")
     st.header("📊 Results Table")
 
@@ -122,7 +147,7 @@ if calculate:
 # ------------------------------------------------------------
 st.markdown("""
 ---
-**References:**
+**References:**  
 - Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, **79**, 2369.  
 - Smith, J.M., Van Ness, H.C., & Abbott, M.M. *Introduction to Chemical Engineering Thermodynamics* (8th Ed.).
 """)
