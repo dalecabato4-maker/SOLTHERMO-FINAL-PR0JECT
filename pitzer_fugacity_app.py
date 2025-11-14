@@ -13,8 +13,7 @@ if "show_intro" not in st.session_state:
 # INTRO SCREEN
 if st.session_state.show_intro:
 
-    st.markdown(
-"""
+    st.markdown("""
 <style>
 /* Reset padding and margins for full-screen effect */
 .block-container {
@@ -166,8 +165,7 @@ body {
 
     </div>
 </div>
-""",
-unsafe_allow_html=True)
+""",unsafe_allow_html=True)
 
     # Streamlit replacement button under the HTML overlay
     enter = st.button("🚀 Enter Calculator", key="enter_calc")
