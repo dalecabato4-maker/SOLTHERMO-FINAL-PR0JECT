@@ -1,10 +1,11 @@
+st.set_page_config(layout="wide")
+
 import streamlit as st
 import pandas as pd
 import math
 from pathlib import Path
 import numpy as np
 
-st.set_page_config(layout="wide")
 
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
