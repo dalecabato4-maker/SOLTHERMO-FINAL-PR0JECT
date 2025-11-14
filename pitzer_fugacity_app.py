@@ -10,7 +10,7 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 # Page Background Image (Chemical Lab)
 # ------------------------------------------------------------
-background_image_url = "https://images.unsplash.com/photo-1581090700227-26a9caaae7ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
+background_image_url = "https://png.pngtree.com/thumb_back/fh260/background/20210728/pngtree-hexagon-light-effect-molecular-structure-chemical-engineering-geometric-texture-colorful-background-image_752109.jpg"
 
 st.markdown(
     f"""
