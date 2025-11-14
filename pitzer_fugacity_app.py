@@ -11,13 +11,16 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # Header Section
 # ------------------------------------------------------------
 st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
-
-<style>
-/* Main background */
-.main {
-    background-color: #F3F6F9;
-}
-
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown("""
 <div style="background-color: #707d64; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
 <h2 style="color:#f0f6ff; font-weight:800;"> About This Thermodynamic Calculator</h2>
