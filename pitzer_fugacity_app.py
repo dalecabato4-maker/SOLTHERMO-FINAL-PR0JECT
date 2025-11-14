@@ -12,8 +12,20 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
 st.markdown("""
-This interactive app estimates *fugacity* and *fugacity coefficient (φ)* for selected gases  
-using the *Pitzer correlation*. It supports both pure gases and mixtures (via mole fraction input).
+Welcome to the Fugacity & Fugacity Coefficient Calculator, a modern tool crafted for Chemical Engineers who work with real-gas behavior, process design, and thermodynamic modeling.
+
+This interactive calculator uses the Pitzer Correlation, one of the most trusted methods for estimating non-ideal gas behavior at elevated pressures. With just a few inputs, it helps you determine:
+
+✨ Reduced Properties
+ • Reduced Temperature (Tr)
+ • Reduced Pressure (Pr)
+
+🔬 Virial Coefficient Parameters
+ • B⁰ and B¹ from Pitzer–Curl correlations
+
+⚙️ Real-Gas Properties
+ • Fugacity Coefficient (φ)
+ • Fugacity (corrected for non-ideality)
 """)
 
 # ------------------------------------------------------------
