@@ -23,104 +23,122 @@ if st.session_state.show_intro:
 
     st.markdown("""
     <style>
-    .intro-container {
-        width: 90%;
-        max-width: 1100px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 40px;
-        padding: 50px 60px;
-        background: rgba(0, 0, 0, 0.55);
-        backdrop-filter: blur(6px);
-        border-radius: 20px;
-        color: white;
-        font-family: 'Segoe UI', sans-serif;
-        text-align: center;
+    /* Remove Streamlit default padding */
+    .main > div {
+        padding-top: 0rem;
     }
+
+    /* Full-screen container */
+    .fullscreen-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        background: url('https://images.unsplash.com/photo-1581091012184-5c8f8b9c3f65?auto=format&fit=crop&w=1400&q=60')
+                    center/cover no-repeat fixed;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        backdrop-filter: brightness(0.45);
+        z-index: -1;
+    }
+
+    /* Centered content box */
+    .intro-box {
+        width: 75%;
+        max-width: 900px;
+
+        background: rgba(0, 0, 0, 0.60);
+        padding: 50px 70px;
+        border-radius: 25px;
+        text-align: center;
+        color: white;
+
+        animation: fadein 1.2s ease-in-out;
+    }
+
+    /* Title */
     .intro-title {
         font-size: 60px;
         font-weight: 900;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
+
+    /* Subtitle */
     .intro-subtitle {
-        font-size: 26px;
-        color: #d8d8d8;
-        margin-top: -10px;
+        font-size: 28px;
         margin-bottom: 25px;
+        color: #e0e0e0;
     }
+
     .intro-text {
         font-size: 20px;
-        line-height: 1.65;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 900px;
+        line-height: 1.7;
+        margin-bottom: 20px;
     }
-    .intro-list {
-        text-align: left;
-        margin: 0 auto;
-        margin-top: 20px;
-        max-width: 700px;
-        font-size: 19px;
-        line-height: 1.6;
-    }
+
     .team-title {
+        margin-top: 30px;
         font-size: 30px;
-        margin-top: 45px;
         font-weight: 700;
     }
+
     .team-names {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 1.7;
+        margin-bottom: 10px;
     }
+
+    /* Fade-in animation */
+    @keyframes fadein {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
     </style>
 
-    <div class="intro-container">
+    <div class="fullscreen-bg"></div>
 
-        <img src='https://cdn-icons-png.flaticon.com/512/3004/3004613.png'
-            width='170' style='margin-bottom:20px;'>
-
-        <div class="intro-title">⚗️ Chemical Engineering Calculator Suite</div>
+    <div class="intro-box">
+        <h1 class="intro-title">⚗️ Chemical Engineering Calculator Suite</h1>
         <div class="intro-subtitle">Fugacity & Fugacity Coefficient (Pitzer Correlation)</div>
 
         <p class="intro-text">
-            Welcome to the Fugacity & Fugacity Coefficient Calculator — a powerful tool made for
-            <b>Chemical Engineering students, researchers, and process design engineers</b>.
-            This application helps you compute essential real-gas properties needed for
-            thermodynamic modeling and high-pressure system design.
+            A full-screen interactive calculator for real-gas behavior using the
+            <b>Pitzer Virial Equation</b>. Designed for chemical engineering
+            students, process engineers, and researchers dealing with VLE,
+            thermodynamics, and high-pressure systems.
         </p>
 
-        <div class="intro-list">
-            <b>This tool calculates:</b><br><br>
-            • Fugacity Coefficient (φ) <br>
-            • Fugacity (corrected real-gas pressure) <br>
-            • Reduced Properties (Tr, Pr) <br>
-            • Pitzer Virial Coefficients (B⁰ & B¹) <br><br>
-            Useful for VLE analysis, reactor design, gas processing, and high-pressure equipment simulations.
-        </div>
+        <p class="intro-text">
+            Compute **Fugacity**, **Fugacity Coefficient**, **Reduced Properties**,
+            and **Pitzer Second Virial Coefficients** with ease.
+        </p>
 
-        <div class="team-title">Developed By:</div>
-
+        <h2 class="team-title">Developed By</h2>
         <div class="team-names">
-            <b>Dale CLarenz Cabato</b><br>
-            <b>Francisco Andrei Joseph Laudez</b><br>
-            <b>Aliona Tejada</b><br>
-            <b>Rafaela Villas</b><br>
-            <b>Archie Plata</b><br>
-            <b>Andrea Hernandez</b><br>
-            <b>Armela Martin</b><br>
-            <b>Dimple Padilla</b><br>
+            Dale CLarenz Cabato<br>
+            Francisco Andrei Joseph Laudez<br>
+            Aliona Tejada<br>
+            Rafaela Villas<br>
+            Archie Plata<br>
+            Andrea Hernandez<br>
+            Armela Martin<br>
+            Dimple Padilla
         </div>
-
     </div>
     """, unsafe_allow_html=True)
 
-    st.write("")  
-    st.write("")  
+    st.write("")
+    st.write("")
+
     if st.button("🚀 Enter Fugacity Calculator"):
         st.session_state.show_intro = False
 
     st.stop()
-
 
 # ------------------------------------------------------------
 # PAGE BACKGROUND (Chemical Lab Style)
