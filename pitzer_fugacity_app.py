@@ -34,7 +34,7 @@ With just a few inputs, it helps you determine:
 
 <p style="font-size:16px; color:#0B3D91;">
 Whether you are analyzing <b>VLE</b>, sizing <b>separation units</b>, simulating <b>reactors</b>, or handling high-pressure systems,
-this calculator provides fast, clean, and reliable real-gas estimates—perfect for:
+this calculator provides fast, clean, and reliable real-gas estimates-perfect for:
 </p>
 
 <ul style="color:#0B3D91; font-size:15px;">
