@@ -12,21 +12,44 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
 st.markdown("""
-Welcome to the Fugacity & Fugacity Coefficient Calculator, a modern tool crafted for Chemical Engineers who work with real-gas behavior, process design, and thermodynamic modeling.
+st.markdown("""
+<div style="background-color: #E3F2FD; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+<h2 style="color:#0D47A1; font-weight:800;">⚗️ About This Thermodynamic Calculator</h2>
 
-This interactive calculator uses the Pitzer Correlation, one of the most trusted methods for estimating non-ideal gas behavior at elevated pressures. With just a few inputs, it helps you determine:
+<p style="font-size:16px; color:#0B3D91;">
+Welcome to the <b>Fugacity & Fugacity Coefficient Calculator</b>, a modern tool crafted for Chemical Engineers 
+working with <b>real-gas behavior</b>, <b>process design</b>, and <b>thermodynamic modeling</b>.
+</p>
 
-✨ Reduced Properties
- • Reduced Temperature (Tr)
- • Reduced Pressure (Pr)
+<p style="font-size:16px; color:#0B3D91;">
+This interactive calculator uses the <b>Pitzer Correlation</b>, a trusted method for estimating non-ideal gas behavior at elevated pressures.
+With just a few inputs, it helps you determine:
+</p>
 
-🔬 Virial Coefficient Parameters
- • B⁰ and B¹ from Pitzer–Curl correlations
+<ul style="color:#0B3D91; font-size:15px;">
+<li>✨ <b>Reduced Properties:</b> Reduced Temperature (Tr), Reduced Pressure (Pr)</li>
+<li>🔬 <b>Virial Coefficient Parameters:</b> B⁰ and B¹ from Pitzer–Curl correlations</li>
+<li>⚙️ <b>Real-Gas Properties:</b> Fugacity Coefficient (φ), Fugacity (corrected for non-ideality)</li>
+</ul>
 
-⚙️ Real-Gas Properties
- • Fugacity Coefficient (φ)
- • Fugacity (corrected for non-ideality)
-""")
+<p style="font-size:16px; color:#0B3D91;">
+Whether you're analyzing <b>VLE</b>, sizing <b>separation units</b>, simulating <b>reactors</b>, or handling high-pressure systems,
+this calculator provides fast, clean, and reliable real-gas estimates—perfect for:
+</p>
+
+<ul style="color:#0B3D91; font-size:15px;">
+<li>Chemical Engineering students</li>
+<li>Plant and process engineers</li>
+<li>Researchers and designers</li>
+<li>Anyone studying thermodynamics or real-gas behavior</li>
+</ul>
+
+<p style="font-size:16px; color:#0B3D91;">
+Built with a <b>blueprint-style chemical engineering theme</b>, the interface combines clarity with an engineering aesthetic,
+making your calculations both efficient and visually engaging.
+</p>
+</div>
+""", unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Gas Database (Critical Constants)
