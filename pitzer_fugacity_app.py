@@ -28,7 +28,7 @@ With just a few inputs, it helps you determine:
 
 <ul style="color:#0B3D91; font-size:15px;">
 <li> <b>Reduced Properties:</b> Reduced Temperature (Tr), Reduced Pressure (Pr)</li>
-<li> <b>Virial Coefficient Parameters:</b> B0 and B1 from Pitzer–Curl correlations</li>
+<li> <b>Virial Coefficient Parameters:</b> B0 and B1 from Pitzer correlations</li>
 <li> <b>Real-Gas Properties:</b> Fugacity Coefficient (φ), Fugacity (corrected for non-ideality)</li>
 </ul>
 
