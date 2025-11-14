@@ -227,7 +227,7 @@ if multi_calc:
             ]}
         ])
 
-        st.dataframe(styled_df, use_container_width=True)
+       st.write(styled_df)
 
 
 
