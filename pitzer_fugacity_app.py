@@ -158,6 +158,7 @@ if calculate:
 st.markdown("""
 ---
 **References:**
-- Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, **79**, 2369.  
+- Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, 79, 2369.  
 - Smith, J.M., Van Ness, H.C., & Abbott, M.M. *Introduction to Chemical Engineering Thermodynamics* (8th Ed.).
-""")
+""", unsafe_allow_html=True)
+
