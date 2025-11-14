@@ -16,7 +16,7 @@ st.set_page_config(
 # Session state: intro toggle
 # -----------------------------------------
 if "show_intro" not in st.session_state:
-    st.session_state.show_intro = True
+    st.session_state.show_intro = True 
 
 # -----------------------------------------
 # INTRO SCREEN (animated + styled)
