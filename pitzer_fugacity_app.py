@@ -22,7 +22,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown("""
-<div style="background-color: #707d64; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(41,120,74,99);">
+<div style="background-color: #3c6669; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(41,120,74,99);">
 <h2 style="color:#f0f6ff; font-weight:800;"> About This Thermodynamic Calculator</h2>
 
 <p style="font-size:16px; color:#f0f6ff;">
