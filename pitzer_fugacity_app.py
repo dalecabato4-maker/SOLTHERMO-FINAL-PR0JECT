@@ -227,7 +227,7 @@ if multi_calc:
             ]}
         ])
 
-       st.write(styled_df)
+        st.write(styled_df)
 
 
 
