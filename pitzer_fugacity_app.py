@@ -22,7 +22,6 @@ if "show_intro" not in st.session_state:
 # INTRO SCREEN (animated + styled)
 # -----------------------------------------
 if st.session_state.show_intro:
-
 st.markdown(
     """
 <style>
