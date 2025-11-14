@@ -11,46 +11,20 @@ if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
 # INTRO SCREEN
-if st.session_state.show_intro:
+# REQUIRED to prevent Streamlit from escaping HTML
+st.markdown("", unsafe_allow_html=True)
 
-    st.markdown("""
+st.markdown("""
 <style>
-/* Reset padding and margins for full-screen effect */
-.block-container {
-    padding: 0 !important;
-    max-width: 100% !important;
-}
 
-body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #0d0d0d, #1a1a2e, #16213e);
-    background-size: 300% 300%;
-    animation: gradientShift 12s ease infinite;
-    overflow: hidden;
+/* RESET */
+html, body, [class*="css"]  {
+    margin:0;
+    padding:0;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* Background gradient animation */
-@keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
-/* Floating animation */
-@keyframes float {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-10px);}
-    100% {transform: translateY(0);}
-}
-
+/* FULLSCREEN */
 .fullscreen-wrapper {
     position: fixed;
     top: 0;
@@ -60,14 +34,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a2e, #16213e);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease infinite;
 }
 
+/* ANIMATED BOX */
 .intro-box {
     width: 80%;
     max-width: 900px;
-    background: rgba(0,0,0,0.55);
     padding: 50px;
+    background: rgba(0,0,0,0.55);
     border-radius: 22px;
     text-align: center;
     backdrop-filter: blur(12px);
@@ -82,57 +59,53 @@ body {
     font-weight: 900;
     letter-spacing: 1.5px;
     margin-bottom: 5px;
-    text-shadow: 0px 0px 15px rgba(255,255,255,0.25);
+    color: white;
 }
 
 .intro-subtitle {
     font-size: 26px;
-    opacity: 0.85;
+    color: #bcd;
     margin-bottom: 25px;
 }
 
 /* TEXT */
 .intro-text {
     font-size: 20px;
+    color: #eee;
     line-height: 1.7;
-    opacity: 0.95;
-    margin-bottom: 15px;
 }
 
-/* TEAM SECTION */
+/* TEAM */
 .team-title {
     font-size: 28px;
-    font-weight: bold;
     margin-top: 30px;
     color: #00d4ff;
-    text-shadow: 0px 0px 10px rgba(0,212,255,0.4);
 }
 
 .team-names {
     font-size: 20px;
+    color: white;
     line-height: 1.7;
-    margin-top: 10px;
 }
 
-/* BUTTON STYLE */
-.enter-button {
-    margin-top: 30px;
-    background: linear-gradient(135deg, #00d4ff, #0077ff);
-    padding: 14px 40px;
-    border-radius: 30px;
-    font-size: 22px;
-    font-weight: bold;
-    color: white !important;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease;
-    box-shadow: 0 0 15px rgba(0,162,255,0.5);
+/* ANIMATIONS */
+@keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
 
-.enter-button:hover {
-    transform: scale(1.07);
-    box-shadow: 0 0 25px rgba(0,162,255,0.9);
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
 }
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+
 </style>
 
 <div class="fullscreen-wrapper">
@@ -165,15 +138,9 @@ body {
 
     </div>
 </div>
-""",unsafe_allow_html=True)
 
-    # Streamlit replacement button under the HTML overlay
-    enter = st.button("🚀 Enter Calculator", key="enter_calc")
+""", unsafe_allow_html=True)
 
-    if enter:
-        st.session_state.show_intro = False
-
-    st.stop()
 
 
 
