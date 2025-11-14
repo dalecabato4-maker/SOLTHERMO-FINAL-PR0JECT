@@ -54,21 +54,8 @@ With just a few inputs, it helps you determine:
 
 <p style="font-size:16px; color:#f0f6ff;">
 Whether you are analyzing <b>VLE</b>, sizing <b>separation units</b>, simulating <b>reactors</b>, or handling high-pressure systems,
-this calculator provides fast, clean, and reliable real-gas estimates-perfect for:
+this calculator provides fast, clean, and reliable real-gas estimates</b>.
 </p>
-
-<ul style="color:#f0f6ff; font-size:15px;">
-<li>Chemical Engineering students</li>
-<li>Plant and process engineers</li>
-<li>Researchers and designers</li>
-<li>Anyone studying thermodynamics or real-gas behavior</li>
-</ul>
-
-<p style="font-size:16px; color:#f0f6ff;">
-Built with a <b>blueprint-style chemical engineering theme</b>, the interface combines clarity with an engineering aesthetic,
-making your calculations both efficient and visually engaging.
-</p>
-</div>
 """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
