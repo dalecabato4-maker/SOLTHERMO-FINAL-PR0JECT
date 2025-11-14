@@ -16,87 +16,88 @@ st.set_page_config(
 # ------------------------------------------------------------
 # INTRO PAGE LOGIC
 # ------------------------------------------------------------
+# --- INTRO PAGE LOGIC ---
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
 if st.session_state.show_intro:
 
-st.markdown("""
-<style>
-.intro-box {
-    width: 80%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 40px 50px;
-    background: rgba(0, 0, 0, 0.65);
-    border-radius: 20px;
-    color: white;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-}
-.intro-box h1 {
-    font-size: 55px;
-    margin-bottom: 10px;
-    font-weight: 900;
-}
-.intro-box h3 {
-    font-size: 24px;
-    margin-top: -10px;
-    color: #d0d0d0;
-}
-.intro-box p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-.dev-names {
-    font-size: 20px;
-    margin-top: 20px;
-    line-height: 1.7;
-}
-</style>
+    st.markdown("""
+    <style>
+    .intro-box {
+        width: 80%;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 40px 50px;
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 20px;
+        color: white;
+        text-align: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .intro-box h1 {
+        font-size: 55px;
+        margin-bottom: 10px;
+        font-weight: 900;
+    }
+    .intro-box h3 {
+        font-size: 24px;
+        margin-top: -10px;
+        color: #d0d0d0;
+    }
+    .intro-box p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+    .dev-names {
+        font-size: 20px;
+        margin-top: 20px;
+        line-height: 1.7;
+    }
+    </style>
 
-<div class='intro-box'>
-    <img src='https://cdn-icons-png.flaticon.com/512/3004/3004613.png'
-         width='160' style='margin-bottom:20px;'>
+    <div class='intro-box'>
+        <img src='https://cdn-icons-png.flaticon.com/512/3004/3004613.png'
+            width='160' style='margin-bottom:20px;'>
 
-    <h1>⚗️ Chemical Engineering Calculator Suite</h1>
-    <h3>Fugacity & Fugacity Coefficient (Pitzer Correlation)</h3>
+        <h1>⚗️ Chemical Engineering Calculator Suite</h1>
+        <h3>Fugacity & Fugacity Coefficient (Pitzer Correlation)</h3>
 
-    <p>
-        This tool is designed for <b>Chemical Engineering students and professionals</b> 
-        who work with real-gas behavior, thermodynamic modeling, and process simulations.
-        It computes:
-    </p>
+        <p>
+            This tool is designed for <b>Chemical Engineering students and professionals</b>
+            who work with real-gas behavior, thermodynamic modeling, and process simulations.
+            It computes:
+        </p>
 
-    <p style="text-align:left; margin-left: 20%; font-size:18px;">
-        • Fugacity Coefficient (φ) <br>
-        • Fugacity (corrected real-gas pressure) <br>
-        • Reduced Properties (Tr, Pr) <br>
-        • Virial Coefficients (B⁰ & B¹) <br><br>
-        Useful for VLE, reactors, gas processing & high-pressure operations.
-    </p>
+        <p style="text-align:left; margin-left: 20%; font-size:18px;">
+            • Fugacity Coefficient (φ) <br>
+            • Fugacity (corrected real-gas pressure) <br>
+            • Reduced Properties (Tr, Pr) <br>
+            • Virial Coefficients (B⁰ & B¹) <br><br>
+            Useful for VLE, reactors, gas processing & high-pressure operations.
+        </p>
 
-    <h3 style='margin-top:35px;'>Developed by:</h3>
+        <h3 style='margin-top:35px;'>Developed by:</h3>
 
-    <div class='dev-names'>
-        <b>Dale CLarenz Cabato</b><br>
-        <b>Francisco Andrei Joseph Laudez</b><br>
-        <b>Aliona Tejada</b><br>
-        <b>Rafaela Villas</b><br>
-        <b>Archie Plata</b><br>
-        <b>Andrea Hernandez</b><br>
-        <b>Armela Martin</b><br>
-        <b>Dimple Padilla</b>
+        <div class='dev-names'>
+            <b>Dale CLarenz Cabato</b><br>
+            <b>Francisco Andrei Joseph Laudez</b><br>
+            <b>Aliona Tejada</b><br>
+            <b>Rafaela Villas</b><br>
+            <b>Archie Plata</b><br>
+            <b>Andrea Hernandez</b><br>
+            <b>Armela Martin</b><br>
+            <b>Dimple Padilla</b>
+        </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-
-    if st.button("🚀 Enter Fugacity Calculator"):
+    if st.button("Enter Fugacity Calculator 🚀"):
         st.session_state.show_intro = False
 
     st.stop()
+
 
 # ------------------------------------------------------------
 # PAGE BACKGROUND (Chemical Lab Style)
