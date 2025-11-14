@@ -16,7 +16,6 @@ st.set_page_config(
 # ------------------------------------------------------------
 # INTRO PAGE LOGIC
 # ------------------------------------------------------------
-# --- INTRO PAGE LOGIC ---
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
@@ -24,63 +23,84 @@ if st.session_state.show_intro:
 
     st.markdown("""
     <style>
-    .intro-box {
-        width: 80%;
-        max-width: 900px;
+    .intro-container {
+        width: 90%;
+        max-width: 1100px;
         margin-left: auto;
         margin-right: auto;
-        padding: 40px 50px;
-        background: rgba(0, 0, 0, 0.65);
+        margin-top: 40px;
+        padding: 50px 60px;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(6px);
         border-radius: 20px;
         color: white;
-        text-align: center;
         font-family: 'Segoe UI', sans-serif;
+        text-align: center;
     }
-    .intro-box h1 {
-        font-size: 55px;
-        margin-bottom: 10px;
+    .intro-title {
+        font-size: 60px;
         font-weight: 900;
+        margin-bottom: 5px;
     }
-    .intro-box h3 {
-        font-size: 24px;
+    .intro-subtitle {
+        font-size: 26px;
+        color: #d8d8d8;
         margin-top: -10px;
-        color: #d0d0d0;
+        margin-bottom: 25px;
     }
-    .intro-box p {
-        font-size: 18px;
+    .intro-text {
+        font-size: 20px;
+        line-height: 1.65;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 900px;
+    }
+    .intro-list {
+        text-align: left;
+        margin: 0 auto;
+        margin-top: 20px;
+        max-width: 700px;
+        font-size: 19px;
         line-height: 1.6;
     }
-    .dev-names {
-        font-size: 20px;
-        margin-top: 20px;
+    .team-title {
+        font-size: 30px;
+        margin-top: 45px;
+        font-weight: 700;
+    }
+    .team-names {
+        font-size: 22px;
         line-height: 1.7;
     }
     </style>
 
-    <div class='intro-box'>
+    <div class="intro-container">
+
         <img src='https://cdn-icons-png.flaticon.com/512/3004/3004613.png'
-            width='160' style='margin-bottom:20px;'>
+            width='170' style='margin-bottom:20px;'>
 
-        <h1>⚗️ Chemical Engineering Calculator Suite</h1>
-        <h3>Fugacity & Fugacity Coefficient (Pitzer Correlation)</h3>
+        <div class="intro-title">⚗️ Chemical Engineering Calculator Suite</div>
+        <div class="intro-subtitle">Fugacity & Fugacity Coefficient (Pitzer Correlation)</div>
 
-        <p>
-            This tool is designed for <b>Chemical Engineering students and professionals</b>
-            who work with real-gas behavior, thermodynamic modeling, and process simulations.
-            It computes:
+        <p class="intro-text">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator — a powerful tool made for
+            <b>Chemical Engineering students, researchers, and process design engineers</b>.
+            This application helps you compute essential real-gas properties needed for
+            thermodynamic modeling and high-pressure system design.
         </p>
 
-        <p style="text-align:left; margin-left: 20%; font-size:18px;">
+        <div class="intro-list">
+            <b>This tool calculates:</b><br><br>
             • Fugacity Coefficient (φ) <br>
             • Fugacity (corrected real-gas pressure) <br>
             • Reduced Properties (Tr, Pr) <br>
-            • Virial Coefficients (B⁰ & B¹) <br><br>
-            Useful for VLE, reactors, gas processing & high-pressure operations.
-        </p>
+            • Pitzer Virial Coefficients (B⁰ & B¹) <br><br>
+            Useful for VLE analysis, reactor design, gas processing, and high-pressure equipment simulations.
+        </div>
 
-        <h3 style='margin-top:35px;'>Developed by:</h3>
+        <div class="team-title">Developed By:</div>
 
-        <div class='dev-names'>
+        <div class="team-names">
             <b>Dale CLarenz Cabato</b><br>
             <b>Francisco Andrei Joseph Laudez</b><br>
             <b>Aliona Tejada</b><br>
@@ -88,12 +108,15 @@ if st.session_state.show_intro:
             <b>Archie Plata</b><br>
             <b>Andrea Hernandez</b><br>
             <b>Armela Martin</b><br>
-            <b>Dimple Padilla</b>
+            <b>Dimple Padilla</b><br>
         </div>
+
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("Enter Fugacity Calculator 🚀"):
+    st.write("")  
+    st.write("")  
+    if st.button("🚀 Enter Fugacity Calculator"):
         st.session_state.show_intro = False
 
     st.stop()
