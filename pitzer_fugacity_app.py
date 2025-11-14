@@ -22,8 +22,8 @@ if "show_intro" not in st.session_state:
 # INTRO SCREEN (animated + styled)
 # -----------------------------------------
 if st.session_state.show_intro:
-st.markdown(
-    """
+    st.markdown(
+        """
 <style>
 html, body, [class*="css"] { margin:0; padding:0; }
 .fullscreen-wrapper {
@@ -95,25 +95,20 @@ html, body, [class*="css"] { margin:0; padding:0; }
 
     </div>
 </div>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        unsafe_allow_html=True,
+    )
 
-
-
-    # Functional Streamlit button (must remain)
     if st.button("🚀 Enter Fugacity Calculator", key="enter_calc"):
         st.session_state.show_intro = False
         st.experimental_rerun()
 
     st.stop()
 
-
 # -----------------------------------------
 # MAIN APP (runs only after intro closed)
 # -----------------------------------------
 
-# (Optional) page background graphic - shows after intro
 background_image_url = "https://png.pngtree.com/thumb_back/fh260/background/20210728/pngtree-hexagon-light-effect-molecular-structure-chemical-engineering-geometric-texture-colorful-background-image_752109.jpg"
 st.markdown(
     f"""
@@ -129,7 +124,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Header / Overview box
 st.markdown(
     """
     <div style="background: rgba(0,0,0,0.55); padding:18px 22px; border-radius:10px; max-width:1100px;">
@@ -143,11 +137,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.write("")  # spacing
+st.write("")
 
-# -----------------------------
-# Gas database and sidebar
-# -----------------------------
 gases = {
     "Carbon Dioxide (CO₂)": {"Tc": 304.2, "Pc": 73.8, "omega": 0.225},
     "Methane (CH₄)": {"Tc": 190.6, "Pc": 45.99, "omega": 0.011},
@@ -173,13 +164,9 @@ y = st.sidebar.number_input("Mole fraction (y)", value=1.0, min_value=0.0, max_v
 
 calc_pressed = st.sidebar.button("🧮 Calculate Fugacity")
 
-# -----------------------------
-# Pitzer correlation function
-# -----------------------------
 def pitzer_fugacity(T, P, Tc, Pc, omega):
     Tr = T / Tc
     Pr = P / Pc
-    # Pitzer B0 and B1
     B0 = 0.083 - (0.422 / (Tr ** 1.6))
     B1 = 0.139 - (0.172 / (Tr ** 4.2))
     ln_phi = (Pr / Tr) * (B0 + omega * B1)
@@ -187,11 +174,7 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
     f = phi * P
     return {"Tr": Tr, "Pr": Pr, "B0": B0, "B1": B1, "phi": phi, "f": f}
 
-# -----------------------------
-# Compute & display results
-# -----------------------------
 if calc_pressed:
-    # basic validation
     if Tc <= 0 or Pc <= 0:
         st.error("Critical properties must be positive numbers.")
     else:
@@ -223,9 +206,9 @@ if calc_pressed:
             ]
         })
 
-        # show success and styled results
         st.success("✅ Calculation completed")
-        st.write("")  # spacing
+        st.write("")
+
 
         # Display styled table via Styler (Streamlit supports Styler objects)
         styled = df.style.set_table_styles([
