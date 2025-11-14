@@ -8,21 +8,32 @@ import pandas as pd
 st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
 
 # ------------------------------------------------------------
-# Header Section
+# Page Background Image (Chemical Lab)
 # ------------------------------------------------------------
-st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
+background_image_url = "https://images.unsplash.com/photo-1581090700227-26a9caaae7ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80"
+
 st.markdown(
-    """
+    f"""
     <style>
-    .stApp {
-        background: linear-gradient(135deg, #385254 0%, #66a6ff 100%);
-    }
+    .stApp {{
+        background-image: url("{background_image_url}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
+# ------------------------------------------------------------
+# Header Section with Card
+# ------------------------------------------------------------
+st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
+
 st.markdown("""
-<div style="background-color: #3c6669; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(41,120,74,99);">
+<div style="background-color: rgba(0, 0, 0, 0.7); padding: 20px 25px; border-radius: 12px;">
 <h2 style="color:#f0f6ff; font-weight:800;"> About This Thermodynamic Calculator</h2>
 
 <p style="font-size:16px; color:#f0f6ff;">
@@ -125,10 +136,8 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
 # ------------------------------------------------------------
 if calculate:
     results = pitzer_fugacity(T, P, Tc, Pc, omega)
-
     fugacity_adjusted = results["fugacity"] * y
 
-    # Create a DataFrame for clean table display
     df_results = pd.DataFrame({
         "Parameter": [
             "Selected Gas", "Reduced Temperature (Tr)", "Reduced Pressure (Pr)",
@@ -145,7 +154,6 @@ if calculate:
         ]
     })
 
-    # Table styling
     st.success("✅ Calculation completed successfully!")
     st.header("📊 Results Table")
 
@@ -153,7 +161,7 @@ if calculate:
         df_results.style.set_table_styles([
             {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
             {"selector": "tbody td", "props": [("background-color", "#F5F7FA"), ("text-align", "center"), ("padding", "6px 10px")]},
-            {"selector": "tbody tr:hover td", "props": [("background-color", "#E3F2FD")]}
+            {"selector": "tbody tr:hover td", "props": [("background-color", "#E3F2FD")]},
         ]).hide(axis="index"),
         use_container_width=True
     )
@@ -170,5 +178,6 @@ st.markdown("""
 - Pitzer, K.S. & Curl, R.F. Jr. (1957). *J. Am. Chem. Soc.*, **79**, 2369.  
 - Smith, J.M., Van Ness, H.C., & Abbott, M.M. *Introduction to Chemical Engineering Thermodynamics* (8th Ed.).
 """, unsafe_allow_html=True)
+
 
 
