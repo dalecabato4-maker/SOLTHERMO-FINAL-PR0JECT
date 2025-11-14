@@ -23,7 +23,7 @@ if "show_intro" not in st.session_state:
 # -----------------------------------------
 if st.session_state.show_intro:
 st.markdown(
-"""
+    """
 <style>
 html, body, [class*="css"] { margin:0; padding:0; }
 .fullscreen-wrapper {
@@ -98,6 +98,7 @@ html, body, [class*="css"] { margin:0; padding:0; }
     """,
     unsafe_allow_html=True,
 )
+
 
 
     # Functional Streamlit button (must remain)
