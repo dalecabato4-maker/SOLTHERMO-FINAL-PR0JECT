@@ -1,5 +1,3 @@
-st.set_page_config(layout="wide")
-
 import streamlit as st
 import pandas as pd
 import math
@@ -7,130 +5,116 @@ from pathlib import Path
 import numpy as np
 
 
+st.set_page_config(layout="wide")
+
 if "show_intro" not in st.session_state:
     st.session_state.show_intro = True
 
 if st.session_state.show_intro:
 
-    st.markdown("""
-    <style>
-        /* REMOVE STREAMLIT DEFAULT MARGINS */
-        .block-container {
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-            max-width: 100% !important;
-        }
+    st.markdown(
+"""
+<style>
+.block-container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.fullscreen-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0d0d0d;
+    color: white;
+    font-family: 'Arial';
+}
+.intro-box {
+    width: 80%;
+    max-width: 1000px;
+    background: rgba(0,0,0,0.6);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.intro-title {
+    font-size: 50px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+.intro-subtitle {
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.intro-text {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.team-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+.team-names {
+    font-size: 20px;
+    line-height: 1.7;
+    margin-top: 10px;
+}
+</style>
 
-        /* MAKE PAGE FULLSCREEN */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
+<div class="fullscreen-wrapper">
+    <div class="intro-box">
+        
+        <div class="intro-title">Calculator Suite</div>
+        <div class="intro-subtitle">Fugacity & Fugacity Coefficient<br>(Pitzer Correlation)</div>
 
-        /* FULLSCREEN FLEX CENTERED WRAPPER */
-        .fullscreen-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+        <p class="intro-text">
+            A full-screen interactive calculator for real-gas behavior using
+            the <b>Pitzer Virial Equation</b>.
+        </p>
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        <p class="intro-text">
+            Computes <b>Fugacity</b>, <b>Fugacity Coefficient</b>,
+            reduced properties, and <b>Pitzer Second Virial Coefficients</b>.
+        </p>
 
-            background: #0d0d0d;
-            color: white;
-            font-family: 'Arial';
-        }
-
-        /* MAIN INTRO BOX */
-        .intro-box {
-            width: 80%;
-            max-width: 1000px;
-
-            background: rgba(0,0,0,0.6);
-            padding: 50px;
-            border-radius: 20px;
-            text-align: center;
-
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .intro-title {
-            font-size: 50px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .intro-subtitle {
-            font-size: 25px;
-            margin-bottom: 20px;
-        }
-
-        .intro-text {
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .team-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-top: 25px;
-        }
-
-        .team-names {
-            font-size: 20px;
-            line-height: 1.7;
-            margin-top: 10px;
-        }
-    </style>
-
-    <div class="fullscreen-wrapper">
-        <div class="intro-box">
-            
-            <div class="intro-title">Calculator Suite</div>
-            <div class="intro-subtitle">Fugacity & Fugacity Coefficient<br>(Pitzer Correlation)</div>
-
-            <p class="intro-text">
-                A full-screen interactive calculator for real-gas behavior using
-                the <b>Pitzer Virial Equation</b>. Perfect for chemical engineering
-                students, process engineers, and researchers working on
-                thermodynamics, VLE, and high-pressure systems.
-            </p>
-
-            <p class="intro-text">
-                Computes <b>Fugacity</b>, <b>Fugacity Coefficient</b>, reduced properties,
-                and <b>Pitzer Second Virial Coefficients</b>.
-            </p>
-
-            <div class="team-title">Developed By</div>
-            <div class="team-names">
-                Dale Clarenz Cabato<br>
-                Francisco Andrei Joseph Laudez<br>
-                Aliona Tejada<br>
-                Rafaela Villas<br>
-                Archie Plata<br>
-                Andrea Hernandez<br>
-                Armela Martin<br>
-                Dimple Padilla
-            </div>
-
+        <div class="team-title">Developed By</div>
+        <div class="team-names">
+            Dale Clarenz Cabato<br>
+            Francisco Andrei Joseph Laudez<br>
+            Aliona Tejada<br>
+            Rafaela Villas<br>
+            Archie Plata<br>
+            Andrea Hernandez<br>
+            Armela Martin<br>
+            Dimple Padilla
         </div>
-    </div>
-    """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    </div>
+</div>
+""",
+unsafe_allow_html=True)
+
     if st.button("🚀 Enter Fugacity Calculator", use_container_width=True):
         st.session_state.show_intro = False
 
     st.stop()
+
 
 
 
