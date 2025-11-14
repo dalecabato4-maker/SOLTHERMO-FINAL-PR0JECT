@@ -163,6 +163,20 @@ multi_calc = st.button("🧮 Calculate Fugacity and φ")
 # ------------------------------------------------------------
 # Multi-Species Calculation & Results
 # ------------------------------------------------------------
+def highlight_gradient(val, min_val, max_val, base="#ECEFF1", accent="#90CAF9"):
+    """Apply a gradient background based on value."""
+    try:
+        val = float(val)
+        ratio = (val - min_val) / (max_val - min_val) if max_val != min_val else 0
+        def blend(c1, c2, r):
+            return tuple(int(c1[i] + (c2[i] - c1[i]) * r) for i in range(3))
+        base_rgb = tuple(int(base[i:i+2], 16) for i in (1, 3, 5))
+        accent_rgb = tuple(int(accent[i:i+2], 16) for i in (1, 3, 5))
+        blended = blend(base_rgb, accent_rgb, ratio)
+        return f"background-color: rgb{blended}"
+    except:
+        return ""
+
 if multi_calc:
     total_y = sum([s["y"] for s in species_inputs])
     if total_y > 1.0:
@@ -186,14 +200,34 @@ if multi_calc:
         df_multi = pd.DataFrame(results)
 
         st.success("✅ Multi-species calculation completed!")
-        st.dataframe(
-            df_multi.style.set_table_styles([
-                {"selector": "thead th", "props": [("background-color", "#1c2d3b"), ("color", "gray"), ("text-align", "center"), ("font-weight", "bold")]},
-                {"selector": "tbody td", "props": [("background-color", "#1c2d3b"), ("text-align", "center"), ("padding", "6px 10px")]},
-                {"selector": "tbody tr:hover td", "props": [("background-color", "#1c2d3b")]}
-            ]),
-            use_container_width=True
-        )
+        # Convert Fugacity column to float for styling
+        df_multi["Fugacity (bar)"] = df_multi["Fugacity (bar)"].astype(float)
+
+        # Get min and max for gradient scaling
+        min_f = df_multi["Fugacity (bar)"].min()
+        max_f = df_multi["Fugacity (bar)"].max()
+
+        # Apply gradient styling to Fugacity column
+        styled_df = df_multi.style.applymap(
+            lambda v: highlight_gradient(v, min_f, max_f),
+            subset=["Fugacity (bar)"]
+        ).set_table_styles([
+            {"selector": "thead th", "props": [
+                ("background-color", "#1E88E5"),
+                ("color", "white"),
+                ("text-align", "center"),
+                ("font-weight", "bold")
+            ]},
+            {"selector": "tbody td", "props": [
+                ("text-align", "center"),
+                ("padding", "6px 10px")
+            ]},
+            {"selector": "tbody tr:hover td", "props": [
+                ("background-color", "#E3F2FD")
+            ]}
+        ])
+
+        st.dataframe(styled_df, use_container_width=True)
 
 
 
