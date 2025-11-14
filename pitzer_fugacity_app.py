@@ -186,13 +186,15 @@ if multi_calc:
         df_multi = pd.DataFrame(results)
 
         st.success("✅ Multi-species calculation completed!")
-   st.dataframe(
-    df_multi.style.set_table_styles([
-        {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
-        {"selector": "tbody td", "props": [("background-color", "#E3F2FD"), ("text-align", "center"), ("padding", "6px 10px")]},
-        {"selector": "tbody tr:hover td", "props": [("background-color", "#BBDEFB")]}
-    ]),
-    use_container_width=True
-)
+        st.dataframe(
+            df_multi.style.set_table_styles([
+                {"selector": "thead th", "props": [("background-color", "#1E88E5"), ("color", "white"), ("text-align", "center"), ("font-weight", "bold")]},
+                {"selector": "tbody td", "props": [("background-color", "#F5F7FA"), ("text-align", "center"), ("padding", "6px 10px")]},
+                {"selector": "tbody tr:hover td", "props": [("background-color", "#1c2d3b")]}
+            ]),
+            use_container_width=True
+        )
+
+
 
         st.caption("Each fugacity value is corrected by mole fraction (f × y).")
