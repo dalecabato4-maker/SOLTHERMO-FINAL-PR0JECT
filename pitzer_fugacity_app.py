@@ -102,8 +102,16 @@ for i in range(num_species):
         "y": mole_frac
     })
 
-T = st.number_input("Temperature (T) [K]", value=300.0, step=0.1)
-P = st.number_input("Pressure (P) [bar]", value=10.0, step=0.1)
+# ------------------------------------------------------------
+# Required Operating Conditions
+# ------------------------------------------------------------
+st.header("🌡️ Required Operating Conditions")
+
+col1, col2 = st.columns(2)
+with col1:
+    T = st.number_input("Temperature (T) [K]", min_value=1.0, value=300.0, step=0.1)
+with col2:
+    P = st.number_input("Pressure (P) [bar]", min_value=0.01, value=10.0, step=0.1)
 
 multi_calc = st.button("🧮 Calculate Fugacity and φ")
 
