@@ -207,7 +207,7 @@ chart_df = pd.DataFrame({
 st.bar_chart(chart_df)
 
         # 📋 Download Button
-        st.download_button(
+st.download_button(
             label="📥 Download Results as CSV",
             data=df_multi.to_csv(index=False).encode("utf-8"),
             file_name="fugacity_results.csv",
