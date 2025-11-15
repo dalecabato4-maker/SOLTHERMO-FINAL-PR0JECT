@@ -233,7 +233,6 @@ if multi_calc:
         for s in species_inputs:
             res = pitzer_fugacity(T, P, s["Tc"], s["Pc"], s["omega"])
             f_corrected = res["phi"] * s["y"] * P
-            "Pure Fugacity (bar)": f"{res['phi'] * P:.5f}",
             results.append({
                 "Gas": s["name"],
                 "y": f"{s['y']:.2f}",
