@@ -135,20 +135,17 @@ st.header("🧪 Multi-Species Fugacity Calculation")
 num_species = st.selectbox("Number of species to calculate:", [1, 2, 3])
 
 species_inputs = []
-for s in species_inputs:
-            res = pitzer_fugacity(T, P, s["Tc"], s["Pc"], s["omega"])
-            f_corrected = res["fugacity"] * s["y"]
-            results.append({
-                "Gas": s["name"],
-                "y": f"{s['y']:.2f}",
-                "Tr": f"{res['Tr']:.3f}",
-                "Pr": f"{res['Pr']:.3f}",
-                "B⁰": f"{res['B0']:.5f}",
-                "B¹": f"{res['B1']:.5f}",
-                "φ": f"{res['phi']:.5f}",
-                "Fugacity (bar)": f"{f_corrected:.5f}"
-            })
-
+for i in range(num_species):
+    st.subheader(f"Species {i+1}")
+    gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
+    mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
+    species_inputs.append({
+        "name": gas,
+        "Tc": gases[gas]["Tc"],
+        "Pc": gases[gas]["Pc"],
+        "omega": gases[gas]["omega"],
+        "y": mole_frac
+    })
 
 # ------------------------------------------------------------
 # Required Operating Conditions
@@ -241,6 +238,9 @@ if multi_calc:
 
         st.write(styled_df)
 
+
+
+        st.caption("Each fugacity value is corrected by mole fraction (f × y).")
 
 
         st.caption("Each fugacity value is corrected by mole fraction (f × y).")
