@@ -186,28 +186,28 @@ if multi_calc:
         st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
     else:
         results = []
-        species_inputs = []
-        for i in range(num_species):
-            st.subheader(f"Species {i+1}")
-            gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
-            mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
-        
-            if gas == "Custom":
-                Tc = st.number_input(f"Enter Critical Temperature Tc (K) for Species {i+1}", min_value=1.0, value=300.0, step=0.1, key=f"Tc_{i}")
-                Pc = st.number_input(f"Enter Critical Pressure Pc (bar) for Species {i+1}", min_value=0.01, value=50.0, step=0.1, key=f"Pc_{i}")
-                omega = st.number_input(f"Enter Acentric Factor ω for Species {i+1}", value=0.1, step=0.01, key=f"omega_{i}")
-            else:
-                Tc = gases[gas]["Tc"]
-                Pc = gases[gas]["Pc"]
-                omega = gases[gas]["omega"]
-        
-            species_inputs.append({
-                "name": gas,
-                "Tc": Tc,
-                "Pc": Pc,
-                "omega": omega,
-                "y": mole_frac
-            })
+species_inputs = []
+for i in range(num_species):
+    st.subheader(f"Species {i+1}")
+    gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
+    mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
+
+    if gas == "Custom":
+        Tc = st.number_input(f"Enter Critical Temperature Tc (K) for Species {i+1}", min_value=1.0, value=300.0, step=0.1, key=f"Tc_{i}")
+        Pc = st.number_input(f"Enter Critical Pressure Pc (bar) for Species {i+1}", min_value=0.01, value=50.0, step=0.1, key=f"Pc_{i}")
+        omega = st.number_input(f"Enter Acentric Factor ω for Species {i+1}", value=0.1, step=0.01, key=f"omega_{i}")
+    else:
+        Tc = gases[gas]["Tc"]
+        Pc = gases[gas]["Pc"]
+        omega = gases[gas]["omega"]
+
+    species_inputs.append({
+        "name": gas,
+        "Tc": Tc,
+        "Pc": Pc,
+        "omega": omega,
+        "y": mole_frac
+    })
 
         df_multi = pd.DataFrame(results)
 
