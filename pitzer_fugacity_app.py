@@ -137,13 +137,60 @@ num_species = st.selectbox("Number of species to calculate:", [1, 2, 3])
 species_inputs = []
 for i in range(num_species):
     st.subheader(f"Species {i+1}")
-    gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
-    mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
+
+    gas = st.selectbox(
+        f"Select gas {i+1}",
+        list(gases.keys()),
+        key=f"gas_{i}"
+    )
+
+    # Default critical properties
+    Tc = gases[gas]["Tc"]
+    Pc = gases[gas]["Pc"]
+    omega = gases[gas]["omega"]
+
+    # --- CUSTOM OPTION ---
+    if gas == "Custom":
+        st.warning("Enter custom critical properties for this gas:")
+
+        Tc = st.number_input(
+            f"Custom Tc (K) for species {i+1}",
+            min_value=1.0,
+            value=300.0,
+            step=1.0,
+            key=f"custom_Tc_{i}"
+        )
+
+        Pc = st.number_input(
+            f"Custom Pc (bar) for species {i+1}",
+            min_value=0.1,
+            value=50.0,
+            step=0.1,
+            key=f"custom_Pc_{i}"
+        )
+
+        omega = st.number_input(
+            f"Custom acentric factor (ω) for species {i+1}",
+            min_value=-0.5,
+            max_value=1.0,
+            value=0.10,
+            step=0.01,
+            key=f"custom_omega_{i}"
+        )
+
+    mole_frac = st.number_input(
+        f"Mole fraction y{i+1}",
+        min_value=0.0, max_value=1.0,
+        value=1.0 if i == 0 else 0.0,
+        step=0.01,
+        key=f"y_{i}"
+    )
+
     species_inputs.append({
         "name": gas,
-        "Tc": gases[gas]["Tc"],
-        "Pc": gases[gas]["Pc"],
-        "omega": gases[gas]["omega"],
+        "Tc": Tc,
+        "Pc": Pc,
+        "omega": omega,
         "y": mole_frac
     })
 
