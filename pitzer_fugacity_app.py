@@ -186,13 +186,46 @@ if multi_calc:
         species_inputs = []
         for i in range(num_species):
             st.subheader(f"Species {i+1}")
-            gas = st.selectbox(f"Select gas {i+1}", list(gases.keys()), key=f"gas_{i}")
-            mole_frac = st.number_input(f"Mole fraction y{i+1}", min_value=0.0, max_value=1.0, value=1.0 if i == 0 else 0.0, step=0.01, key=f"y_{i}")
+            
+            col1, col2 = st.columns([2, 1])
+            with col1:
+                gas = st.selectbox(
+                    f"Select gas for Species {i+1}",
+                    options=list(gases.keys()),
+                    key=f"gas_select_{i}"
+                )
+            with col2:
+                mole_frac = st.number_input(
+                    f"Mole fraction y{i+1}",
+                    min_value=0.0,
+                    max_value=1.0,
+                    value=1.0 if i == 0 else 0.0,
+                    step=0.01,
+                    key=f"y_input_{i}"
+                )
         
+            # Handle custom gas input
             if gas == "Custom":
-                Tc = st.number_input(f"Enter Critical Temperature Tc (K) for Species {i+1}", min_value=1.0, value=300.0, step=0.1, key=f"Tc_{i}")
-                Pc = st.number_input(f"Enter Critical Pressure Pc (bar) for Species {i+1}", min_value=0.01, value=50.0, step=0.1, key=f"Pc_{i}")
-                omega = st.number_input(f"Enter Acentric Factor ω for Species {i+1}", value=0.1, step=0.01, key=f"omega_{i}")
+                Tc = st.number_input(
+                    f"Enter Tc (K) for Species {i+1}",
+                    min_value=1.0,
+                    value=300.0,
+                    step=0.1,
+                    key=f"Tc_input_{i}"
+                )
+                Pc = st.number_input(
+                    f"Enter Pc (bar) for Species {i+1}",
+                    min_value=0.01,
+                    value=50.0,
+                    step=0.1,
+                    key=f"Pc_input_{i}"
+                )
+                omega = st.number_input(
+                    f"Enter ω for Species {i+1}",
+                    value=0.1,
+                    step=0.01,
+                    key=f"omega_input_{i}"
+                )
             else:
                 Tc = gases[gas]["Tc"]
                 Pc = gases[gas]["Pc"]
@@ -205,7 +238,6 @@ if multi_calc:
                 "omega": omega,
                 "y": mole_frac
             })
-
         df_multi = pd.DataFrame(results)
 
         st.success("✅ Multi-species calculation completed!")
