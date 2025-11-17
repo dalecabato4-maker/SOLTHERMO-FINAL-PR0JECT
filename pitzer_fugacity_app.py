@@ -79,14 +79,6 @@ if "loaded" not in st.session_state:
 # ------------------------------------------------------------
 # HOMEPAGE INTRO SCREEN
 # ------------------------------------------------------------
-st.markdown("""
-<div style="text-align:center; margin-top:20px;">
-    <img src="https://lottie.host/950cd7ad-6f36-455e-8d52-ef13c0a23fb2/fDs3dG1xeA.json"
-         alt="chemical animation"
-         style="height:220px;" />
-</div>
-""", unsafe_allow_html=True)
-
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
@@ -156,7 +148,9 @@ using the *Pitzer correlation*. It supports both pure gases and mixtures (via mo
 # ------------------------------------------------------------
 # Multi-Species Input Section
 # ------------------------------------------------------------
-st.header("🧪 Multi-Species Fugacity Calculation")
+st.markdown("""<h2>🧪 Multi-Species Fugacity Calculation <span style="color:#1E88E5;">(Real Gas Models)</span></h2>""",
+            unsafe_allow_html=True)
+
 
 num_species = st.selectbox("Number of species to calculate:", [1, 2, 3])
 
