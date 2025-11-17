@@ -65,7 +65,7 @@ if "loaded" not in st.session_state:
     with st.empty():
         st.markdown("""
             <div style="text-align:center; padding:60px;">
-                <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/577589630_1202878731708511_7913393542555106531_n.jpg?raw=true" width="120" style="margin-bottom:20px;" />
+                <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Untitled_design__3_-removebg-preview.png" width="120" style="margin-bottom:20px;" />
                 <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
                 <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
             </div>
