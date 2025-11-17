@@ -20,7 +20,7 @@ st.markdown("""
             font-family: 'Segoe UI', sans-serif;
             
             /* ▼▼ REPLACED background-color with gradient ▼▼ */
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            background: linear-gradient(120deg, #c9dff7, #89bff5, #5fa3e4);
         }
 
         h1, h2, h3 {
