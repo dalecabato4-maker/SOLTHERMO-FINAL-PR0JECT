@@ -11,21 +11,29 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 # Custom CSS Styling
 # ------------------------------------------------------------
+# ------------------------------------------------------------
+# Custom CSS Styling
+# ------------------------------------------------------------
 st.markdown("""
     <style>
-        html, body {
+        html, body, .stApp {
             font-family: 'Segoe UI', sans-serif;
+            
+            /* ▼▼ REPLACED background-color with gradient ▼▼ */
             background: linear-gradient(135deg, #e3f2fd, #bbdefb);
         }
+
         h1, h2, h3 {
             color: #1E88E5;
         }
+
         .stNumberInput input {
             background-color: #ffffff;
             border: 1px solid #1E88E5;
             border-radius: 5px;
             padding: 5px;
         }
+
         div.stButton > button {
             background-color: #1E88E5;
             color: white;
@@ -34,14 +42,17 @@ st.markdown("""
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
+
         div.stButton > button:hover {
             background-color: #1565C0;
         }
+
         .block-container {
             padding-top: 2rem;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # ------------------------------------------------------------
 # Sidebar
