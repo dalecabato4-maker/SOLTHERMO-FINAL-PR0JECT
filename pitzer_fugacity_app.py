@@ -15,7 +15,7 @@ st.markdown("""
     <style>
         html, body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f4f8;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
         }
         h1, h2, h3 {
             color: #1E88E5;
