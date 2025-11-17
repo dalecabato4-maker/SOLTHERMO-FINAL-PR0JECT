@@ -65,7 +65,7 @@ if "loaded" not in st.session_state:
     with st.empty():
         st.markdown("""
             <div style="text-align:center; padding:60px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Engineering_icon.svg/1024px-Engineering_icon.svg.png" width="120" style="margin-bottom:20px;" />
+                <img src="https://drive.google.com/file/d/1XWHGR3Be1f8K-z5xVQuq949jxH8y9edq/view?usp=drive_link" width="120" style="margin-bottom:20px;" />
                 <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
                 <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
             </div>
