@@ -57,7 +57,20 @@ with st.sidebar:
 # ------------------------------------------------------------
 if "show_homepage" not in st.session_state:
     st.session_state.show_homepage = True
-
+# ------------------------------------------------------------
+# Loading Screen with Logo
+# ------------------------------------------------------------
+if "loaded" not in st.session_state:
+    with st.empty():
+        st.markdown("""
+            <div style="text-align:center; padding:60px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Engineering_icon.svg/1024px-Engineering_icon.svg.png" width="120" style="margin-bottom:20px;" />
+                <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
+                <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
+            </div>
+        """, unsafe_allow_html=True)
+        time.sleep(2.5)
+    st.session_state.loaded = True
 # ------------------------------------------------------------
 # HOMEPAGE INTRO SCREEN
 # ------------------------------------------------------------
