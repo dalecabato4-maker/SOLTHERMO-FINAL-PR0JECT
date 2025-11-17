@@ -255,7 +255,7 @@ if multi_calc:
 
     progress.empty()
     status.empty()
-    
+    total_y = sum([s["y"] for s in species_inputs])
     if total_y > 1.0:
         st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
     else:
