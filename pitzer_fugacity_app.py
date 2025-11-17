@@ -255,6 +255,7 @@ if multi_calc:
 
     progress.empty()
     status.empty()
+    
     if total_y > 1.0:
         st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
     else:
