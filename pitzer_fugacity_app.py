@@ -73,7 +73,7 @@ if "loaded" not in st.session_state:
                 <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
             </div>
         """, unsafe_allow_html=True)
-        time.sleep(2.5)  # Simulate loading delay
+        time.sleep(3.5)  # Simulate loading delay
     loading_placeholder.empty()  # Clear the loading screen
     st.session_state.loaded = True
 # ------------------------------------------------------------
