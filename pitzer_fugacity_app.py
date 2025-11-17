@@ -58,11 +58,14 @@ with st.sidebar:
 # ------------------------------------------------------------
 if "show_homepage" not in st.session_state:
     st.session_state.show_homepage = True
+import time
+
 # ------------------------------------------------------------
-# Loading Screen with Logo
+# Loading Screen with Logo (Auto-Disappear)
 # ------------------------------------------------------------
 if "loaded" not in st.session_state:
-    with st.empty():
+    loading_placeholder = st.empty()
+    with loading_placeholder:
         st.markdown("""
             <div style="text-align:center; padding:60px;">
                 <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Untitled_design__3_-removebg-preview.png?raw=true" width="400" style="margin-bottom:40px;" />
@@ -70,7 +73,8 @@ if "loaded" not in st.session_state:
                 <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
             </div>
         """, unsafe_allow_html=True)
-        time.sleep(2.5)
+        time.sleep(2.5)  # Simulate loading delay
+    loading_placeholder.empty()  # Clear the loading screen
     st.session_state.loaded = True
 # ------------------------------------------------------------
 # HOMEPAGE INTRO SCREEN
