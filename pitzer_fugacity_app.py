@@ -148,7 +148,7 @@ using the *Pitzer correlation*. It supports both pure gases and mixtures (via mo
 # ------------------------------------------------------------
 # Multi-Species Input Section
 # ------------------------------------------------------------
-st.markdown("""<h2>🧪 Multi-Species Fugacity Calculation <span style="color:#1E88E5;">(Real Gas Models)</span></h2>""",
+st.markdown("""<h2>🧪 Multi-Species Fugacity Calculation <span style="color:#1E88E5;">(Ideal Gas model)</span></h2>""",
             unsafe_allow_html=True)
 
 
@@ -245,7 +245,16 @@ def highlight_gradient(val, min_val, max_val, base="#ECEFF1", accent="#90CAF9"):
         return ""
 
 if multi_calc:
-    total_y = sum([s["y"] for s in species_inputs])
+    progress = st.progress(0)
+    status = st.empty()
+
+    for i in range(100):
+        time.sleep(0.01)
+        progress.progress(i+1)
+        status.write(f"Computing thermodynamic properties... {i+1}%")
+
+    progress.empty()
+    status.empty()
     if total_y > 1.0:
         st.error("❌ Total mole fraction exceeds 1. Please adjust inputs.")
     else:
