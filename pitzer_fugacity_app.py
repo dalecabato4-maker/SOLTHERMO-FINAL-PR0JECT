@@ -93,8 +93,8 @@ if st.session_state.show_homepage:
         <br/>
         <h3 style="color:#00aaff;">Developed By:</h3>
         <p style="font-size:16px;">
-            Dale Clarenz Cabato · Francisco Andrei Joseph Laudez · Aliona Tejada · Rafaela Villas ·  
-            Archie Plata · Andrea Hernandez · Armela Martin · Dimple Padilla
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
         </p>
         <br/><br/>
     </div>
