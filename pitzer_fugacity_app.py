@@ -13,9 +13,10 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-       html, body {
+        html, body {
             font-family: 'Segoe UI', sans-serif;
-            background-image: url("https://i.pximg.net/img-master/img/2023/07/09/17/28/40/109765329_p0_master1200.jpg");
+            /* background-color: #f0f4f8; */  /* remove or comment this line */
+            background-image: url("https://example.com/your-image.jpg");
             background-size: cover;  /* cover the whole page */
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -45,7 +46,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
 
 
 # ------------------------------------------------------------
