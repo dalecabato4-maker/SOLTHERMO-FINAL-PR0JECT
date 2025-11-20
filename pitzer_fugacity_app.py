@@ -51,8 +51,7 @@ st.markdown("""
 with st.sidebar:
     st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
-    st.info("Fugacity Calculator App
-The Fugacity Calculator App is a user-friendly tool designed to estimate the fugacity of pure gases and chemical compounds under various conditions. Using critical properties (Tc, Pc) and the acentric factor (ω), the app applies equations of state to provide accurate fugacity values for engineering, chemical, and thermodynamic calculations. Ideal for students, researchers, and chemical engineers, it simplifies complex thermodynamic computations into an interactive and accessible platform.")
+    st.info("The Fugacity Calculator App is a user-friendly tool designed to estimate the fugacity of pure gases and chemical compounds under various conditions. Using critical properties (Tc, Pc) and the acentric factor (ω), the app applies equations of state to provide accurate fugacity values for engineering, chemical, and thermodynamic calculations. Ideal for students, researchers, and chemical engineers, it simplifies complex thermodynamic computations into an interactive and accessible platform.")
     st.markdown("---")
     st.markdown("Made with ❤️ by Chemical Engineering Students")
 
