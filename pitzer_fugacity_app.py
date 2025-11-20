@@ -51,7 +51,8 @@ st.markdown("""
 with st.sidebar:
     st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
-    st.info("This calculator uses the Pitzer correlation to estimate fugacity and fugacity coefficients for gases under non-ideal conditions.")
+    st.info("Fugacity Calculator App
+The Fugacity Calculator App is a user-friendly tool designed to estimate the fugacity of pure gases and chemical compounds under various conditions. Using critical properties (Tc, Pc) and the acentric factor (ω), the app applies equations of state to provide accurate fugacity values for engineering, chemical, and thermodynamic calculations. Ideal for students, researchers, and chemical engineers, it simplifies complex thermodynamic computations into an interactive and accessible platform.")
     st.markdown("---")
     st.markdown("Made with ❤️ by Chemical Engineering Students")
 
@@ -84,7 +85,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite</h1>
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite ⚗️</h1>
         <p style="font-size:18px; max-width:700px; margin:auto;">
             Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
             Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
