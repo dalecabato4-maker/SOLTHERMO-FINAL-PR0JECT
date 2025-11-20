@@ -15,7 +15,7 @@ st.markdown("""
     <style>
        html, body {
             font-family: 'Segoe UI', sans-serif;
-            background-image: url("https://wallpapercave.com/wp/wp3484429.jpg");
+            background-image: url("https://i.pximg.net/img-master/img/2023/07/09/17/28/40/109765329_p0_master1200.jpg");
             background-size: cover;  /* cover the whole page */
             background-repeat: no-repeat;
             background-attachment: fixed;
