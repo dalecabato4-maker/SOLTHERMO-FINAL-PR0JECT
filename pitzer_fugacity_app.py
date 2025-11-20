@@ -13,9 +13,13 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-        html, body {
+       html, body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f4f8;
+            /* background-color: #f0f4f8; */  /* remove or comment this line */
+            background-image: url("https://wallpapercave.com/wp/wp3484429.jpg");
+            background-size: cover;  /* cover the whole page */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         h1, h2, h3 {
             color: #1E88E5;
