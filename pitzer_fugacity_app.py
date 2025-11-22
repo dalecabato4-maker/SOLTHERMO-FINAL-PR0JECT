@@ -9,37 +9,283 @@ import time
 st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
 
 # ------------------------------------------------------------
-# Custom CSS Styling
+# Custom CSS Styling (UPDATED)
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-        html, body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f4f8;
-        }
-        h1, h2, h3 {
-            color: #1E88E5;
-        }
-        .stNumberInput input {
-            background-color: #ffffff;
-            border: 1px solid #1E88E5;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        div.stButton > button {
-            background-color: #1E88E5;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        div.stButton > button:hover {
-            background-color: #1565C0;
-        }
-        .block-container {
-            padding-top: 2rem;
-        }
+
+    :root{
+      --bg:#ffffff;
+      --card:#f7f8fb;
+      --accent:#1e3a8a;
+      --muted:#6b7280;
+    }
+
+    body{
+      margin:0;
+      font-family:Inter, Arial, sans-serif;
+      background:var(--bg);
+      color:#111827;
+    }
+    .app{
+      max-width:980px;
+      margin:24px auto;
+      padding:20px;
+    }
+    header h1{
+      font-size:28px;
+      margin:0 0 18px 0;
+      color:var(--accent);
+    }
+    .controls{
+      background:var(--card);
+      padding:16px;
+      border-radius:10px;
+      border:1px solid #e6edf6;
+    }
+    .controls label{
+      display:block;margin:10px 0 6px 0;font-weight:600;
+    }
+    #numSpecies{
+      width:120px;
+      padding:8px;
+      border-radius:6px;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    .species-box{
+      background:#fff;
+      border:1px solid #e6edf6;
+      padding:12px;
+      border-radius:8px;
+      margin-top:14px;
+    }
+    .species-box h3{margin:0 0 8px 0}
+    .species-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .species-row select, .species-row input[type="number"]{
+      padding:8px;
+      border-radius:6px;
+      border:1px solid #d1d5db;
+      min-width:200px;
+    }
+    .conditions{
+      display:flex;
+      gap:12px;
+      margin-top:8px;
+      align-items:center;
+    }
+    .conditions label{font-weight:500}
+    .btn{
+      margin-top:16px;
+      background:linear-gradient(90deg,#2563eb,#1e40af);
+      color:white;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .results{
+      margin-top:18px;
+    }
+    .result-table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    .result-table th, .result-table td{
+      border:1px solid #e6edf6;
+      padding:8px;
+      text-align:left;
+    }
+    .note{color:var(--muted);font-size:13px;margin-top:8px}
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+    }
+
+    .loading-logo img {
+      width: 160px;
+      height: 160px;
+      animation: logoPulse 2s infinite ease-in-out;
+      background: transparent !important;
+    }
+
+    .load-labels {
+      width: 320px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      margin-bottom: 6px;
+    }
+
+    .loading-left, .loading-right {
+      font-size: 16px;
+      color: #cbd5e1;
+    }
+    .loading-right { font-weight: 700; }
+
+    .loading-bar-container {
+      width: 320px;
+      height: 10px;
+      background: #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg,#3b82f6,#1d4ed8);
+      transition: width 0.1s linear;
+    }
+
+    @keyframes logoPulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.18); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+
+    /* INTRO SCREEN */
+    .intro-screen {
+      position: fixed;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 40px 20px;
+      background: url("galaxy-bg.png") center/cover no-repeat;
+      overflow-y: auto;
+    }
+
+    .intro-card {
+      background: #ffffff;
+      width: 90%;
+      max-width: 900px;
+      padding: 30px 35px;
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+      text-align: center;
+    }
+
+    .intro-top-card { margin-top: 60px; }
+    .intro-bottom-card {
+        margin-top: 300px;
+        margin-bottom: 120px;
+        width: 50%;
+        max-width: 650px;
+    }
+
+    .intro-title { display:flex; align-items:center; justify-content:center; gap:15px; }
+    .intro-title h1 {
+      font-size:2.1rem;
+      margin:0;
+      color:#005f5f;
+    }
+
+    .intro-icon { width:50px; height:auto; }
+    .intro-logo { width:160px; height:auto; }
+
+    .intro-description {
+      margin-top:15px;
+      font-size:1.05rem;
+      color:#003c3c;
+      line-height:1.6;
+    }
+
+    .intro-developed {
+      color: #005f5f;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .intro-names {
+      font-size: 0.95rem;
+      color: #003c3c;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .intro-button {
+      background:#007bff;
+      color:white;
+      border:none;
+      padding:12px 25px;
+      font-size:1rem;
+      border-radius:6px;
+      cursor:pointer;
+      transition:0.25s ease;
+      box-shadow:0px 3px 6px rgba(0,0,0,0.15);
+    }
+
+    .intro-button:hover {
+      background:#005fcc;
+      transform:translateY(-6px);
+      box-shadow:0px 6px 12px rgba(0,0,0,0.25);
+    }
+
+    button { transition:0.25s ease; }
+    button:hover {
+      transform:translateY(-6px);
+      box-shadow:0px 9px 15px rgba(0,0,0,0.25);
+    }
+
+    /* Background image for whole app */
+    .intro-screen, .app {
+        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
+        center/cover no-repeat fixed;
+    }
+
+    body {
+        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
+        no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .app {
+        background:#ffffff !important;
+        padding:25px;
+        border-radius:18px;
+        box-shadow:0 10px 35px rgba(0,0,0,0.45);
+        max-width:900px;
+        margin:40px auto;
+    }
+
+    .calc-title { color:#005f5f !important; }
+
+    input[type=number] {
+      -webkit-appearance: textfield !important;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: inner-spin-button !important;
+      opacity:1 !important;
+      display:block !important;
+      height:20px !important;
+      width:20px !important;
+      margin:0 !important;
+    }
+
+    #calculateBtn:disabled {
+        cursor:not-allowed !important;
+        opacity:0.6;
+        transform:none !important;
+        box-shadow:none !important;
+    }
+
     </style>
 """, unsafe_allow_html=True)
 
