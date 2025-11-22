@@ -323,125 +323,28 @@ if "loaded" not in st.session_state:
     loading_placeholder.empty()  # Clear the loading screen
     st.session_state.loaded = True
 # ------------------------------------------------------------
-# HOMEPAGE INTRO SCREEN (IMPROVED MODERN DESIGN)
+# HOMEPAGE INTRO SCREEN
 # ------------------------------------------------------------
 if st.session_state.show_homepage:
     st.markdown("""
-    <style>
-        .home-container {
-            text-align: center;
-            padding: 60px 20px;
-            margin-top: 10px;
-            animation: fadeIn 1.2s ease-out forwards;
-        }
-
-        .home-title {
-            font-size: 46px;
-            font-weight: 800;
-            color: #0ea5e9;
-            margin-bottom: 10px;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.25);
-        }
-
-        .home-subtitle {
-            font-size: 20px;
-            color: #e2f4ff;
-            margin-top: -8px;
-            margin-bottom: 30px;
-        }
-
-        .home-card {
-            background: rgba(255, 255, 255, 0.92);
-            padding: 32px;
-            border-radius: 22px;
-            max-width: 850px;
-            margin: auto;
-            box-shadow: 0px 15px 35px rgba(0,0,0,0.35);
-            backdrop-filter: blur(8px);
-            animation: slideUp 1.2s ease-out forwards;
-        }
-
-        .home-description {
-            font-size: 18px;
-            color: #003c3c;
-            line-height: 1.65;
-        }
-
-        .dev-header {
-            margin-top: 25px;
-            font-size: 22px;
-            font-weight: 700;
-            color: #0369a1;
-        }
-
-        .dev-names {
-            margin-top: 6px;
-            font-size: 15px;
-            color: #075985;
-            line-height: 1.55;
-        }
-
-        .home-button {
-            margin-top: 32px;
-            background: linear-gradient(90deg, #0284c7, #0369a1);
-            color: white !important;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: 0.25s;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.25);
-        }
-
-        .home-button:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.35);
-            background: linear-gradient(90deg, #0369a1, #0c4a6e);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0px); opacity: 1; }
-        }
-    </style>
-
-    <div class="home-container">
-        <div class="home-title">⚗️ Fugacity Calculator Suite ⚗️</div>
-        <div class="home-subtitle">Pitzer Correlation • Real Gas Thermodynamics</div>
-
-        <div class="home-card">
-            <p class="home-description">
-                Welcome to the Fugacity & Fugacity Coefficient Calculator using the 
-                <b>Pitzer correlation</b>. Fugacity is a corrected pressure that accounts for 
-                non-ideal gas behavior — essential for accurate thermodynamic modeling.
-                <br><br>
-                This tool supports calculations for both <b>pure gases</b> and <b>gas mixtures</b>, 
-                based on the widely used model of <i>Pitzer & Curl (1957)</i>.
-            </p>
-
-            <div class="dev-header">Developed By</div>
-            <p class="dev-names">
-                Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  
-                Armela Monique D. Martin · Dimple Jean E. Padilla · Archie P. Plata · 
-                Aliona Galle D. Tejada · Rafaella Anne D. Villas
-            </p>
-
-            <form action="#" method="post">
-                <button class="home-button" type="submit">🚀 Enter Calculator</button>
-            </form>
-        </div>
+    <div style="text-align:center; padding:40px;">
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite ⚗️</h1>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl (1957).
+        </p>
+        <br/>
+        <h3 style="color:#00aaff;">Developed By:</h3>
+        <p style="font-size:16px;">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
+        </p>
+        <br/><br/>
     </div>
     """, unsafe_allow_html=True)
 
-    # Button trigger
-    if st.button(""):
+    if st.button("🚀 Enter Calculator"):
         st.session_state.show_homepage = False
 
     st.stop()
