@@ -13,406 +13,97 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-        :root{
-  --bg:#ffffff
-  --card:#f7f8fb;
-  --accent:#1e3a8a;
-  --muted:#6b7280;
-}
-
-
- 
-body{
-  margin:0;
-  font-family:Inter, Arial, sans-serif;
-  background:var(--bg);
-  color:#111827;
-}
-.app{
-  max-width:980px;
-  margin:24px auto;
-  padding:20px;
-}
-header h1{
-  font-size:28px;
-  margin:0 0 18px 0;
-  color:var(--accent);
-}
-.controls{
-  background:var(--card);
-  padding:16px;
-  border-radius:10px;
-  border:1px solid #e6edf6;
-}
-.controls label{display:block;margin:10px 0 6px 0;font-weight:600}
-#numSpecies{
-  width:120px;
-  padding:8px;
-  border-radius:6px;
-  border:1px solid #d1d5db;
-  background:#fff;
-}
-.species-box{
-  background:#fff;
-  border:1px solid #e6edf6;
-  padding:12px;
-  border-radius:8px;
-  margin-top:14px;
-}
-.species-box h3{margin:0 0 8px 0}
-.species-row{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-.species-row select, .species-row input[type="number"]{
-  padding:8px;
-  border-radius:6px;
-  border:1px solid #d1d5db;
-  min-width:200px;
-}
-.conditions{
-  display:flex;
-  gap:12px;
-  margin-top:8px;
-  align-items:center;
-}
-.conditions label{font-weight:500}
-.btn{
-  margin-top:16px;
-  background:linear-gradient(90deg,#2563eb,#1e40af);
-  color:white;
-  border:none;
-  padding:10px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:700;
-}
-.results{
-  margin-top:18px;
-}
-.result-table{
-  width:100%;
-  border-collapse:collapse;
-}
-.result-table th, .result-table td{
-  border:1px solid #e6edf6;
-  padding:8px;
-  text-align:left;
-}
-.note{color:var(--muted);font-size:13px;margin-top:8px}
-
-#loadingScreen {
-  position: fixed;
-  inset: 0;
-  background: #0f172a;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  color: white;
-}
-
-.loading-logo img {
-  width: 160px;
-  height: 160px;
-  animation: logoPulse 2s infinite ease-in-out;
-  background: transparent !important; /* ensures NO background */
-}
-
-.load-labels {
-  width: 320px;         /* controls spacing of left/right labels */
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-  margin-bottom: 6px;
-}
-
-.loading-left {
-  font-size: 16px;
-  color: #cbd5e1;
-}
-
-.loading-right {
-  font-size: 16px;
-  color: #cbd5e1;
-  font-weight: 700;
-}
-
-.loading-bar-container {
-  width: 320px;       /* SHORTER BAR */
-  height: 10px;
-  background: #1e293b;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.loading-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg,#3b82f6,#1d4ed8);
-  transition: width 0.1s linear;
-}
-
-@keyframes logoPulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.18); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
-}
-
-
-/* ===============================
-      🌟  INTRO SCREEN
-================================*/
-
-/* INTRO SCREEN */
-/* ===========================================
-   🌌 INTRO SCREEN WITH GALAXY BACKGROUND
-=========================================== */
-
-/* ============== INTRO BACKGROUND ============== */
-/* ================================
-   TWO INTRO WHITE CARD SYSTEM
-================================*/
-
-.intro-screen {
-  position: fixed;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 40px 20px;
-  background: url("galaxy-bg.png") center/cover no-repeat;
-  overflow-y: auto;
-}
-
-.intro-card {
-  background: #ffffff;
-  width: 90%;
-  max-width: 900px;
-  padding: 30px 35px;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.18);
-  text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
-}
-
-/* TOP CARD — Move down slightly */
-.intro-top-card {
-  margin-top: 60px;
-}
-
-/* BOTTOM CARD — Put more spacing below top card */
-.intro-bottom-card {
-    margin-top: 300px;
-    margin-bottom: 120px;
-    width: 50%;
-    max-width: 650px;
-}
+        html, body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f4f8;
+        }
+        h1, h2, h3 {
+            color: #1E88E5;
+        }
+        .stNumberInput input {
+            background-color: #ffffff;
+            border: 1px solid #1E88E5;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        div.stButton > button {
+            background-color: #1E88E5;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        div.stButton > button:hover {
+            background-color: #1565C0;
+        }
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 
-/* Center "Developed By" */
-.intro-developed {
-  margin-bottom: 10px;
-  text-align: center;
-}
+# ------------------------------------------------------------
+# Sidebar
+# ------------------------------------------------------------
+with st.sidebar:
+    st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
+    st.markdown("### 📘 About This App")
+    st.info("This calculator uses the Pitzer correlation to estimate fugacity and fugacity coefficients for gases under non-ideal conditions.")
+    st.markdown("---")
+    st.markdown("Made by Group 4 of ChE-3106")
 
-/* Proceed Button at bottom center */
-.intro-button {
-  margin-top: 25px;
-  align-self: center;
-}
+# ------------------------------------------------------------
+# Session State: Homepage Toggle
+# ------------------------------------------------------------
+if "show_homepage" not in st.session_state:
+    st.session_state.show_homepage = True
+import time
 
+# ------------------------------------------------------------
+# Loading Screen with Logo (Auto-Disappear)
+# ------------------------------------------------------------
+if "loaded" not in st.session_state:
+    loading_placeholder = st.empty()
+    with loading_placeholder:
+        st.markdown("""
+            <div style="text-align:center; padding:60px;">
+                <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Untitled_design__3_-removebg-preview.png?raw=true" width="400" style="margin-bottom:40px;" />
+                <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
+                <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
+            </div>
+        """, unsafe_allow_html=True)
+        time.sleep(3.5)  # Simulate loading delay
+    loading_placeholder.empty()  # Clear the loading screen
+    st.session_state.loaded = True
+# ------------------------------------------------------------
+# HOMEPAGE INTRO SCREEN
+# ------------------------------------------------------------
+if st.session_state.show_homepage:
+    st.markdown("""
+    <div style="text-align:center; padding:40px;">
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite ⚗️</h1>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl (1957).
+        </p>
+        <br/>
+        <h3 style="color:#00aaff;">Developed By:</h3>
+        <p style="font-size:16px;">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
+        </p>
+        <br/><br/>
+    </div>
+    """, unsafe_allow_html=True)
 
-/* ============== TOP CARD (Title) ============== */
-.intro-card-top {
-  text-align: center;
-}
+    if st.button("🚀 Enter Calculator"):
+        st.session_state.show_homepage = False
 
-.intro-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.intro-title h1 {
-  font-size: 2.1rem;
-  margin: 0;
-  color:  #005f5f;
-;
-}
-
-.intro-logo {
-  width: 160px;   /* same size as fugacity beaker */
-  height: auto;
-
-}
-  .intro-icon {
-    width: 50px;   /* adjust this size */
-    height: auto;
-}
-
-
-.intro-description {
-  margin-top: 15px;
-  font-size: 1.05rem;
-  color: #003c3c;
-  line-height: 1.6;
-}
-
-
-/* ============== BOTTOM CARD (Developed by + Button) ============== */
-.intro-developed {
-  margin: 0 0 50px 0;
-  color: #005f5f;
-  font-size: 1.3rem;
-}
-
-.intro-names {
-  font-size: 0.95rem;
-  color: #003c3c;
-  line-height: 1.5;
-  margin-bottom: 22px;
-}
-
-
-/* ============== BUTTON ============== */
-.intro-button {
-  background: linear-gradient(90deg, #008f8f, #005f5f);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.intro-button:hover {
-  background: linear-gradient(90deg, #00c2a8, #008f8f);
-  box-shadow: 0px 10px 20px rgba(0, 194, 168, 0.35);
-  transform: translateY(-4px);
-}
-
-
-
-#proceedBtn {
-  background: linear-gradient(90deg,#2563eb,#1e40af);
-  border: none;
-  color: white;
-  padding: 10px 18px;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-/* ================================
-   INTRO SCREEN BUTTON (WITH HOVER)
-==================================*/
-
-.intro-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.25s ease;        /* smooth animation */
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
-}
-
-.intro-button:hover {
-  background: #005fcc;           /* darker blue */
-  transform: translateY(-6px);   /* hover lift */
-  box-shadow: 0px 6px 12px rgba(0,0,0,0.25);
-}
-
-.intro-button:active {
-  transform: translateY(0px);    /* click press effect */
-  box-shadow: 0px 6px 9px rgba(0,0,0,0.15);
-}
-
-
-/* ==================================================
-   UNIVERSAL BUTTON HOVER (affects Calculate, etc.)
-   — you may delete this if you only want intro hover
-===================================================*/
-
-button {
-  transition: 0.25s ease;
-}
-
-button:hover {
-  transform: translateY(-6px);
-  box-shadow: 0px 9px 15px rgba(0,0,0,0.25);
-  opacity: 1;
-}
-
-button:active {
-  transform: translateY(0px);
-
-}
-
-/* 🌌 SET BACKGROUND FOR INTRO + APP */
-.intro-screen,
-.app {
-    background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
-     center/cover no-repeat fixed;
-
-}
-
-body {
-    background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
-
-/* White card background around calculator */
-.app {
-    background: #ffffff !important;
-/* almost solid white */
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.45);
-    max-width: 900px;
-    margin: 40px auto;
-}
-
-.calc-title {
-    color: #005f5f !important;
-}
-
-
-/* FORCE SHOW NUMBER INPUT SPINNER (Chrome, Edge, Opera) */
-input[type=number] {
-  -webkit-appearance: textfield !important;
-  appearance: textfield !important;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: inner-spin-button !important;
-  opacity: 1 !important;
-  display: block !important;
-  height: 20px !important;
-  width: 20px !important;
-  margin: 0 !important;
-}
-
-
-
-/* 🔥 STOP SIGN EFFECT WHEN BUTTON IS DISABLED */
-#calculateBtn:disabled {
-    cursor: not-allowed !important;      /* shows stop sign */
-    opacity: 0.6;                         /* looks disabled */
-    transform: none !important;           /* stop hover lift */
-    box-shadow: none !important;          /* remove glow */
-}
+    st.stop()
 
 # ------------------------------------------------------------
 # Gas Database (Critical Constants)
