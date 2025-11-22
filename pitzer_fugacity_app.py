@@ -310,43 +310,43 @@ if "show_intro" not in st.session_state:
 
 
 # --------------------------------------------------------
-# LOADING SCREEN (Simulated)
+# FIXED LOADING SCREEN (working animation)
 # --------------------------------------------------------
 if not st.session_state.loading_done:
 
-    st.markdown('<div id="loading-container">', unsafe_allow_html=True)
-
+    # Full screen overlay
     st.markdown("""
-    <div class="loading-logo">
-        <img src="Calculator.png">
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-        <div class="load-labels">
-            <span>Loading...</span>
-            <span id="percent">0%</span>
-        </div>
-    """, unsafe_allow_html=True)
-
-    bar_container = st.container()
-    with bar_container:
-        bar_html = st.markdown("""
-            <div class="loading-bar-bg">
-                <div class="loading-bar-fill" id="barfill"></div>
+        <div id="loadingScreen">
+            <div class="loading-logo"><img src="Calculator.png"></div>
+            <div class="load-labels">
+                <span class="loading-left">Loading...</span>
+                <span class="loading-right" id="pvalue">0%</span>
             </div>
-        """, unsafe_allow_html=True)
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="pbar" style="width:0%"></div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    # Simulate progress
-    for i in range(1, 101):
-        percent_placeholder = f"""
-        <script>
-        document.getElementById("percent").innerText = "{i}%";
-        document.querySelector(".loading-bar-fill").style.width = "{i}%";
-        </script>
-        """
-        st.markdown(percent_placeholder, unsafe_allow_html=True)
-        time.sleep(0.01)
+    # Progress simulation using Streamlit (not JS)
+    progress_text = st.empty()
+    bar_html = st.empty()
+
+    for i in range(0, 101):
+        # Update text
+        progress_text.markdown(
+            f"""
+            <script>
+                document.getElementById("pvalue").innerText = "{i}%";
+                document.getElementById("pbar").style.width = "{i}%";
+            </script>
+            """,
+            unsafe_allow_html=True
+        )
+
+        time.sleep(0.015)
 
     st.session_state.loading_done = True
     st.stop()
