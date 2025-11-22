@@ -299,89 +299,55 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("Made by Group 4 of ChE-3106")
 
-# --------------------------------------------------------
-# SESSION STATE
-# --------------------------------------------------------
-if "loading_done" not in st.session_state:
-    st.session_state.loading_done = False
+# ------------------------------------------------------------
+# Session State: Homepage Toggle
+# ------------------------------------------------------------
+if "show_homepage" not in st.session_state:
+    st.session_state.show_homepage = True
+import time
 
-if "show_intro" not in st.session_state:
-    st.session_state.show_intro = True
-
-
-# --------------------------------------------------------
-# FIXED LOADING SCREEN (working animation)
-# --------------------------------------------------------
-if not st.session_state.loading_done:
-
-    # Full screen overlay
-    st.markdown("""
-        <div id="loadingScreen">
-            <div class="loading-logo"><img src="Calculator.png"></div>
-            <div class="load-labels">
-                <span class="loading-left">Loading...</span>
-                <span class="loading-right" id="pvalue">0%</span>
+# ------------------------------------------------------------
+# Loading Screen with Logo (Auto-Disappear)
+# ------------------------------------------------------------
+if "loaded" not in st.session_state:
+    loading_placeholder = st.empty()
+    with loading_placeholder:
+        st.markdown("""
+            <div style="text-align:center; padding:60px;">
+                <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Untitled_design__3_-removebg-preview.png?raw=true" width="400" style="margin-bottom:40px;" />
+                <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
+                <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
             </div>
-            <div class="loading-bar-container">
-                <div class="loading-bar" id="pbar" style="width:0%"></div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Progress simulation using Streamlit (not JS)
-    progress_text = st.empty()
-    bar_html = st.empty()
-
-    for i in range(0, 101):
-        # Update text
-        progress_text.markdown(
-            f"""
-            <script>
-                document.getElementById("pvalue").innerText = "{i}%";
-                document.getElementById("pbar").style.width = "{i}%";
-            </script>
-            """,
-            unsafe_allow_html=True
-        )
-
-        time.sleep(0.015)
-
-    st.session_state.loading_done = True
-    st.stop()
-
-
-# --------------------------------------------------------
-# INTRO SCREEN
-# --------------------------------------------------------
-if st.session_state.show_intro:
-
-    st.markdown('<div class="intro-wrapper">', unsafe_allow_html=True)
-
+        """, unsafe_allow_html=True)
+        time.sleep(3.5)  # Simulate loading delay
+    loading_placeholder.empty()  # Clear the loading screen
+    st.session_state.loaded = True
+# ------------------------------------------------------------
+# HOMEPAGE INTRO SCREEN
+# ------------------------------------------------------------
+if st.session_state.show_homepage:
     st.markdown("""
-    <div class="intro-card">
-        <div class="intro-title">
-            <img src="https://cdn.vectorstock.com/i/500p/42/46/alembic-sign-emoji-icon-laboratory-vector-55454246.jpg">
-            <h1>Fugacity Calculator Suite</h1>
-            <img src="https://cdn.vectorstock.com/i/500p/42/46/alembic-sign-emoji-icon-laboratory-vector-55454246.jpg">
-        </div>
-
-        <p class="intro-description">
-            Welcome to the Fugacity & Fugacity Coefficient Calculator using the
-            <strong>Pitzer correlation</strong>. Fugacity is a corrected pressure that accounts
-            for non-ideal gas behavior — essential for accurate thermodynamic modeling.
-            This tool supports both pure gases and mixtures and is based on the work of
-            Pitzer & Curl (1957).
+    <div style="text-align:center; padding:40px;">
+        <h1 style="font-size:42px;">⚗️ Fugacity Calculator Suite ⚗️</h1>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl (1957).
         </p>
+        <br/>
+        <h3 style="color:#00aaff;">Developed By:</h3>
+        <p style="font-size:16px;">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
+        </p>
+        <br/><br/>
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("Proceed", key="intro_btn"):
-        st.session_state.show_intro = False
+    if st.button("🚀 Enter Calculator"):
+        st.session_state.show_homepage = False
 
     st.stop()
-
 
 # ------------------------------------------------------------
 # Gas Database (Critical Constants)
