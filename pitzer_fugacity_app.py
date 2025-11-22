@@ -169,8 +169,9 @@ if st.session_state.show_homepage and not st.session_state.intro_proceeded:
     # Capture the proceed button via st.button (avoid JS). Show a similar styled button underneath too.
     if st.button("🚀 Enter Calculator"):
         st.session_state.intro_proceeded = True
-        st.session_state.show_homepage = False
-        st.experimental_rerun()  # refresh to show calculator
+        st.session_state.show_intro = False
+        st.session_state.trigger = True  # forces natural rerun
+
 
     st.stop()
 
