@@ -1,31 +1,27 @@
+# fugacity_app_integrated.py
 import streamlit as st
 import numpy as np
 import pandas as pd
 import time
+from io import BytesIO
 
-# ------------------------------------------------------------
-# Page Configuration
-# ------------------------------------------------------------
 st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout="centered")
 
-# ------------------------------------------------------------
-# Custom CSS Styling (UPDATED)
-# ------------------------------------------------------------
-st.markdown("""
+# -------------------------
+# CSS Styling (keep earlier style + minor tweaks)
+# -------------------------
+st.markdown(
+    """
     <style>
-
     :root{
       --bg:#ffffff;
       --card:#f7f8fb;
       --accent:#1e3a8a;
       --muted:#6b7280;
     }
-
-    body{
-      margin:0;
-      font-family:Inter, Arial, sans-serif;
-      background:var(--bg);
-      color:#111827;
+    html, body {
+      font-family: Inter, Arial, sans-serif;
+      background: #f3f6fb;
     }
     .app{
       max-width:980px;
@@ -43,16 +39,6 @@ st.markdown("""
       border-radius:10px;
       border:1px solid #e6edf6;
     }
-    .controls label{
-      display:block;margin:10px 0 6px 0;font-weight:600;
-    }
-    #numSpecies{
-      width:120px;
-      padding:8px;
-      border-radius:6px;
-      border:1px solid #d1d5db;
-      background:#fff;
-    }
     .species-box{
       background:#fff;
       border:1px solid #e6edf6;
@@ -60,234 +46,302 @@ st.markdown("""
       border-radius:8px;
       margin-top:14px;
     }
-    .species-box h3{margin:0 0 8px 0}
-    .species-row{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .species-row select, .species-row input[type="number"]{
-      padding:8px;
-      border-radius:6px;
-      border:1px solid #d1d5db;
-      min-width:200px;
-    }
     .conditions{
       display:flex;
       gap:12px;
       margin-top:8px;
       align-items:center;
     }
-    .conditions label{font-weight:500}
-    .btn{
-      margin-top:16px;
-      background:linear-gradient(90deg,#2563eb,#1e40af);
-      color:white;
-      border:none;
-      padding:10px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .results{
-      margin-top:18px;
-    }
-    .result-table{
-      width:100%;
-      border-collapse:collapse;
-    }
-    .result-table th, .result-table td{
-      border:1px solid #e6edf6;
-      padding:8px;
-      text-align:left;
-    }
     .note{color:var(--muted);font-size:13px;margin-top:8px}
-
-    #loadingScreen {
-      position: fixed;
-      inset: 0;
-      background: #0f172a;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      color: white;
-    }
-
-    .loading-logo img {
-      width: 160px;
-      height: 160px;
-      animation: logoPulse 2s infinite ease-in-out;
-      background: transparent !important;
-    }
-
-    .load-labels {
-      width: 320px;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      margin-bottom: 6px;
-    }
-
-    .loading-left, .loading-right {
-      font-size: 16px;
-      color: #cbd5e1;
-    }
-    .loading-right { font-weight: 700; }
-
-    .loading-bar-container {
-      width: 320px;
-      height: 10px;
-      background: #1e293b;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .loading-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg,#3b82f6,#1d4ed8);
-      transition: width 0.1s linear;
-    }
-
-    @keyframes logoPulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.18); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.7; }
-    }
-
-    /* INTRO SCREEN */
-    .intro-screen {
-      position: fixed;
-      inset: 0;
-      display: none;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      padding: 40px 20px;
-      background: url("galaxy-bg.png") center/cover no-repeat;
-      overflow-y: auto;
-    }
-
+    /* Intro-like card */
     .intro-card {
       background: #ffffff;
-      width: 90%;
-      max-width: 900px;
-      padding: 30px 35px;
-      border-radius: 18px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
-      text-align: center;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.14);
+      margin-bottom: 18px;
     }
-
-    .intro-top-card { margin-top: 60px; }
-    .intro-bottom-card {
-        margin-top: 300px;
-        margin-bottom: 120px;
-        width: 50%;
-        max-width: 650px;
+    .intro-title { display:flex; align-items:center; justify-content:center; gap:12px; }
+    .intro-title h1 { margin:0; color:#005f5f; }
+    .proceed-btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
     }
-
-    .intro-title { display:flex; align-items:center; justify-content:center; gap:15px; }
-    .intro-title h1 {
-      font-size:2.1rem;
-      margin:0;
-      color:#005f5f;
-    }
-
-    .intro-icon { width:50px; height:auto; }
-    .intro-logo { width:160px; height:auto; }
-
-    .intro-description {
-      margin-top:15px;
-      font-size:1.05rem;
-      color:#003c3c;
-      line-height:1.6;
-    }
-
-    .intro-developed {
-      color: #005f5f;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .intro-names {
-      font-size: 0.95rem;
-      color: #003c3c;
-      line-height: 1.5;
-      margin-bottom: 22px;
-    }
-
-    .intro-button {
-      background:#007bff;
-      color:white;
-      border:none;
-      padding:12px 25px;
-      font-size:1rem;
-      border-radius:6px;
-      cursor:pointer;
-      transition:0.25s ease;
-      box-shadow:0px 3px 6px rgba(0,0,0,0.15);
-    }
-
-    .intro-button:hover {
-      background:#005fcc;
-      transform:translateY(-6px);
-      box-shadow:0px 6px 12px rgba(0,0,0,0.25);
-    }
-
-    button { transition:0.25s ease; }
-    button:hover {
-      transform:translateY(-6px);
-      box-shadow:0px 9px 15px rgba(0,0,0,0.25);
-    }
-
-    /* Background image for whole app */
-    .intro-screen, .app {
-        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
-        center/cover no-repeat fixed;
-    }
-
-    body {
-        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
-        no-repeat center center fixed;
-        background-size: cover;
-    }
-
-    .app {
-        background:#ffffff !important;
-        padding:25px;
-        border-radius:18px;
-        box-shadow:0 10px 35px rgba(0,0,0,0.45);
-        max-width:900px;
-        margin:40px auto;
-    }
-
-    .calc-title { color:#005f5f !important; }
-
-    input[type=number] {
-      -webkit-appearance: textfield !important;
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: inner-spin-button !important;
-      opacity:1 !important;
-      display:block !important;
-      height:20px !important;
-      width:20px !important;
-      margin:0 !important;
-    }
-
-    #calculateBtn:disabled {
-        cursor:not-allowed !important;
-        opacity:0.6;
-        transform:none !important;
-        box-shadow:none !important;
-    }
-
+    .center { text-align: center; }
     </style>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
+
+# -------------------------
+# Sidebar (keep)
+# -------------------------
+with st.sidebar:
+    st.image(
+        "https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg",
+        width=200,
+    )
+    st.markdown("### 📘 About This App")
+    st.info(
+        "This calculator is intended to support implementation of the Pitzer correlation for fugacity coefficients. "
+        "Currently the app displays reduced properties and an ideal-gas-based fugacity (φ=1) placeholder. "
+        "You can extend this with Pitzer formulae in the TODO area."
+    )
+    st.markdown("---")
+    st.markdown("Made by Group 4 of ChE-3106")
+
+# -------------------------
+# Session State Defaults
+# -------------------------
+if "show_homepage" not in st.session_state:
+    st.session_state.show_homepage = True
+if "loaded" not in st.session_state:
+    st.session_state.loaded = False
+if "intro_proceeded" not in st.session_state:
+    st.session_state.intro_proceeded = False
+
+# -------------------------
+# Simulated Loading Screen (first run)
+# -------------------------
+def simulated_loading():
+    # Create a full-width placeholder area for the loading "modal"
+    load_placeholder = st.empty()
+    with load_placeholder.container():
+        st.markdown(
+            """
+            <div style="width:100%; display:flex; justify-content:center; padding:36px;">
+                <div style="text-align:center; max-width:640px;">
+                    <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Untitled_design__3_-removebg-preview.png?raw=true"
+                         width="260" style="margin-bottom:18px;" />
+                    <h2 style="color:#1E88E5; margin-bottom:6px;">🔄 Loading Fugacity Calculator...</h2>
+                    <p style="color:#374151; margin-top:4px; margin-bottom:16px;">
+                      Initializing thermodynamic models and styling interface...
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # simulate percentage progress bar using streamlit's progress
+        prog = st.progress(0)
+        pct_text = st.empty()
+        for i in range(0, 101, 5):
+            prog.progress(i)
+            pct_text.markdown(f"<div style='text-align:center; color:#94a3b8; font-weight:600;'>{i}%</div>", unsafe_allow_html=True)
+            time.sleep(0.05)
+        # clear the loading
+        load_placeholder.empty()
+
+# Run loading once
+if not st.session_state.loaded:
+    simulated_loading()
+    st.session_state.loaded = True
+
+# -------------------------
+# Homepage / Intro Screen (closely styled)
+# -------------------------
+if st.session_state.show_homepage and not st.session_state.intro_proceeded:
+    st.markdown(
+        """
+        <div class="intro-card" style="max-width:900px; margin:18px auto;">
+            <div class="intro-title">
+                <img src="https://cdn.vectorstock.com/i/500p/42/46/alembic-sign-emoji-icon-laboratory-vector-55454246.jpg" style="width:48px;"/>
+                <h1>⚗️ Fugacity Calculator Suite ⚗️</h1>
+                <img src="https://cdn.vectorstock.com/i/500p/42/46/alembic-sign-emoji-icon-laboratory-vector-55454246.jpg" style="width:48px;"/>
+            </div>
+            <p style="text-align:center; color:#134e4a; font-size:15px;">
+                Welcome to the Fugacity & Fugacity Coefficient Calculator using the <strong>Pitzer correlation</strong>.
+                Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.
+                This tool supports both pure gases and mixtures and is based on the work of Pitzer & Curl (1957).
+            </p>
+            <div style="text-align:center; margin-top:12px;">
+                <button id="proceedBtn" class="proceed-btn">🚀 Enter Calculator</button>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Capture the proceed button via st.button (avoid JS). Show a similar styled button underneath too.
+    if st.button("🚀 Enter Calculator"):
+        st.session_state.intro_proceeded = True
+        st.session_state.show_homepage = False
+        st.experimental_rerun()  # refresh to show calculator
+
+    st.stop()
+
+# -------------------------
+# MAIN APP
+# -------------------------
+st.markdown("<div class='app'>", unsafe_allow_html=True)
+st.header("⚗️ Fugacity & Fugacity Coefficient Calculator")
+
+st.markdown(
+    """
+    <div class="note">Note: This version currently uses an <strong>ideal gas placeholder</strong> (φ = 1) for fugacity.
+    Use the TODO area in the code to add your Pitzer correlation implementation. The UI is ready and dynamic.</div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# ------------------------------------------------------------
+# Controls area (dynamic species inputs)
+# ------------------------------------------------------------
+st.markdown("---")
+with st.form(key="fugacity_form"):
+    st.markdown("### Calculator Controls")
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        num_species = st.selectbox("Number of species to calculate:", options=[1, 2, 3, 4], index=0, key="numSpecies")
+    with col2:
+        calc_method = st.selectbox(
+            "Computation method (placeholder):",
+            options=["Ideal gas (φ = 1)", "Pitzer (TODO - implement)"],
+            index=0,
+            help="Choose 'Ideal gas' for now. Replace/implement Pitzer code in the TODO area when ready.",
+        )
+
+    # Operating conditions
+    st.markdown("#### Required Operating Conditions")
+    T = st.number_input("Temperature (T) [K]", value=300.0, format="%.3f", step=0.1)
+    P_bar = st.number_input("Pressure (P) [bar]", value=1.0, format="%.5f", step=0.01)
+
+    st.markdown("#### Species Data")
+    species_inputs = []
+    total_x = 0.0
+
+    # default species names list (editable)
+    default_species_names = ["Methane", "Ethane", "Propane", "n-Butane", "Nitrogen", "CO2", "O2"]
+
+    for i in range(num_species):
+        st.markdown(f"**Species {i+1}**")
+        cols = st.columns([2, 1, 1, 1, 1])
+        with cols[0]:
+            s_name = st.text_input(f"Name (species {i+1})", value=(default_species_names[i] if i < len(default_species_names) else f"Species_{i+1}"), key=f"name_{i}")
+        with cols[1]:
+            omega = st.number_input(f"Acentric factor ω (species {i+1})", value=0.1, format="%.5f", key=f"omega_{i}")
+        with cols[2]:
+            xi = st.number_input(f"Mole fraction x (species {i+1})", value=round(1.0/num_species, 6), format="%.6f", min_value=0.0, max_value=1.0, key=f"x_{i}")
+        with cols[3]:
+            Tc = st.number_input(f"Tc [K] (species {i+1})", value=400.0, format="%.3f", key=f"Tc_{i}")
+        with cols[4]:
+            Pc = st.number_input(f"Pc [bar] (species {i+1})", value=40.0, format="%.5f", key=f"Pc_{i}")
+
+        species_inputs.append({
+            "name": s_name,
+            "omega": float(omega),
+            "x": float(xi),
+            "Tc": float(Tc),
+            "Pc": float(Pc)
+        })
+        total_x += float(xi)
+
+    warning_placeholder = st.empty()
+    # Warn if mole fractions don't sum to ~1
+    if abs(total_x - 1.0) > 1e-6:
+        warning_placeholder.warning(f"Total mole fraction = {total_x:.6f}. Ideally this should sum to 1.0. (You can normalize or adjust x values.)")
+
+    submit = st.form_submit_button("Calculate Fugacity and φ", use_container_width=True)
+
+# -------------------------
+# Calculations & Results
+# -------------------------
+def normalize_x_if_needed(species_list):
+    s = species_list.copy()
+    total = sum([sp["x"] for sp in s])
+    if total <= 0:
+        return s
+    for sp in s:
+        sp["x"] = sp["x"] / total
+    return s
+
+def compute_results(species_list, T, P_bar, method="Ideal gas (φ = 1)"):
+    # Returns pandas DataFrame with computed columns
+    results = []
+    P_pa = P_bar  # keep bar units in output for user familiarity (fugacity in bar)
+    for sp in species_list:
+        name = sp["name"]
+        omega = sp["omega"]
+        x = sp["x"]
+        Tc = sp["Tc"]
+        Pc = sp["Pc"]
+        # reduced properties
+        Tr = T / Tc if Tc > 0 else np.nan
+        Pr = P_bar / Pc if Pc > 0 else np.nan
+
+        # === Placeholder computations ===
+        if method == "Ideal gas (φ = 1)":
+            phi = 1.0
+        else:
+            # TODO: implement Pitzer correlation here
+            # For now, keep phi = 1 and mark as placeholder
+            phi = 1.0
+
+        fugacity = phi * P_bar  # fugacity in bar (since P_bar is in bar)
+        results.append({
+            "Species": name,
+            "ω (acentric)": omega,
+            "x_i": x,
+            "Tc [K]": Tc,
+            "Pc [bar]": Pc,
+            "Tr = T/Tc": Tr,
+            "Pr = P/Pc": Pr,
+            "φ (fugacity coeff)": phi,
+            "f (bar)": fugacity
+        })
+    df = pd.DataFrame(results)
+    return df
+
+if submit:
+    # optional normalization prompt
+    normalize_choice = False
+    total_x = sum([sp["x"] for sp in species_inputs])
+    if abs(total_x - 1.0) > 1e-6:
+        normalize_choice = st.checkbox("Normalize mole fractions to sum to 1.0 before calculation?", value=True)
+        if normalize_choice:
+            species_inputs = normalize_x_if_needed(species_inputs)
+
+    # compute
+    df_results = compute_results(species_inputs, T, P_bar, method=calc_method)
+
+    st.markdown("### Results")
+    st.dataframe(df_results.style.format({
+        "ω (acentric)": "{:.5f}",
+        "x_i": "{:.6f}",
+        "Tc [K]": "{:.3f}",
+        "Pc [bar]": "{:.5f}",
+        "Tr = T/Tc": "{:.5f}",
+        "Pr = P/Pc": "{:.5f}",
+        "φ (fugacity coeff)": "{:.6f}",
+        "f (bar)": "{:.6f}",
+    }), height=280)
+
+    # Download CSV button
+    csv = df_results.to_csv(index=False).encode("utf-8")
+    st.download_button("Download results as CSV", data=csv, file_name="fugacity_results.csv", mime="text/csv")
+
+    st.markdown("---")
+    st.markdown("#### Notes & Next Steps")
+    st.markdown(
+        """
+        - The current computation uses an **ideal gas placeholder** (φ = 1).  
+        - To use the Pitzer correlation, paste or implement the formula in the `compute_results` function where marked `TODO`.  
+        - Typical additions:
+            - implement Pitzer second virial coefficient correlation: B(T) = B0(T_r) + ω B1(T_r)
+            - compute compressibility factor Z from virial or EOS and then φ = exp(Z-1 - ln Z)
+        - If you want, I can implement common correlations (Pitzer coefficients or Lee-Kesler) next — say which one and I will code it.
+        """
+    )
+
+else:
+    st.markdown("No calculation executed yet. Fill fields and press **Calculate Fugacity and φ**.")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
 
 # ------------------------------------------------------------
 # Sidebar
