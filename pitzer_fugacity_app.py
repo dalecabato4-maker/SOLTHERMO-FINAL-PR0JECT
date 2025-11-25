@@ -25,6 +25,21 @@ st.markdown("""
         font-family: 'Open Sans', sans-serif !important;
         font-style: italic !important;
     }
+    .montserrat {
+        font-family: 'Montserrat', sans-serif !important;
+    }
+    .montserrat-italic {
+        font-family: 'Montserrat', sans-serif !important;
+        font-style: italic !important;
+    }
+    .playfair {
+            font-family: 'Playfair Display', serif !important;
+    }
+     .playfair-italic {
+            font-family: 'Playfair Display', serif !important;
+            font-style: italic !important;
+     }
+
 
     :root{
       --bg:#ffffff;
@@ -308,7 +323,7 @@ with st.sidebar:
     st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
     st.markdown("""
-    <p class="poppins-italic">
+    <p class="montserrat-italic">
             This calculator uses the Pitzer correlation to estimate fugacity and 
             fugacity coefficients for gases under ideal and non-ideal conditions.
         </p>
@@ -347,7 +362,7 @@ if st.session_state.show_homepage:
     <div style="text-align:center; padding:40px;">
         <h1 style="font-size:52px;">⚗️ Fugacitor ⚗️</h1>
         <p style="font-size:18px; max-width:700px; margin:auto;">
-        <p class="open-sans">
+        <p class="montserrat">
             Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
             Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
             This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl.
