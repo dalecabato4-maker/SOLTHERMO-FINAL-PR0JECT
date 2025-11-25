@@ -331,8 +331,8 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("""
     <p class="playfair">
-    Made by Group 4 of ChE-3106
-    </p>
+            Made by Group 4 of ChE-3106
+        </p>
     """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
@@ -352,7 +352,7 @@ if "loaded" not in st.session_state:
             <div style="text-align:center; padding:60px;">
                 <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Calculator%20(1).png?raw=true" width="400" style="margin-bottom:40px;" />
                 <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
-                <p style="font-size:20px;">
+                <p style="font-size:24px;">
                 <p class="playfair">
                 Initializing thermodynamic models and styling interface...
                 </p>
@@ -367,8 +367,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <h1 style="font-size:52px;">
-        ⚗️ Fugacitor ⚗️
+        <h1 style="font-size:56px;">  ⚗️ Fugacitor ⚗️
         <p class="playfair">
         </h1>
         </p>
