@@ -17,6 +17,12 @@ st.markdown("""
         font-family: 'Poppins', sans-serif !important;
         font-style: italic !important;
     }
+    /* Pixel-style game font */
+    @import url('https://fonts.cdnfonts.com/css/press-start-2p');
+
+    /* Clean UI text font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
     :root{
       --bg:#ffffff;
       --card:#f7f8fb;
@@ -336,22 +342,32 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <h1 style="font-size:42px;">⚗️ Fugacitor ⚗️</h1>
-        <p style="font-size:18px; max-width:700px; margin:auto;">
-            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
-            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
-            This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl.
+
+        <h1 class="pixel-title">⚗️ Fugacitor ⚗️</h1>
+
+        <p class="poppins-text" style="max-width:700px; margin:auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the 
+            <b>Pitzer correlation</b>.<br>
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — 
+            essential for accurate thermodynamic modeling.<br>
+            This tool supports both pure gases and mixtures, based on the work of Pitzer & Curl.
         </p>
+
         <br/>
-        <h3 style="color:#00aaff;">Developed By:</h3>
-        <p style="font-size:16px;">
-            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
-            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
+
+        <h3 class="pixel-subtitle">Developed By:</h3>
+
+        <p class="poppins-names">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · 
+            Francisco Andrei Joseph Laudez · Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · 
+            Aliona Galle D. Tejada · Rafaella Anne D. Villas
         </p>
+
         <br/><br/>
     </div>
-    """, unsafe_allow_html=True)
-
+""", unsafe_allow_html=True)
+    
     if st.button("🚀 Enter Calculator"):
         st.session_state.show_homepage = False
 
