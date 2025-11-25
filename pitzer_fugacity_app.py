@@ -13,97 +13,157 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-
-    :root{
-      --bg:#ffffff;
-      --card:#f7f8fb;
-      --accent:#1e3a8a;
-      --muted:#6b7280;
+ /* ------------------------------------------------------------
+       Import Google Fonts
+------------------------------------------------------------ */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap'); 
+/* ------------------------------------------------------------
+   Root Theme Variables
+------------------------------------------------------------ */
+    :root {
+      --bg: #ffffff;
+      --card: #f8fafc;
+      --accent: #0d47a1;
+      --accent-light: #1976d2;
+      --muted: #64748b;
+      --shadow: 0 8px 24px rgba(0,0,0,0.18);
+      --radius: 14px;
+      --transition: 0.25s ease;
     }
-
-    body{
-      margin:0;
-      font-family:Inter, Arial, sans-serif;
-      background:var(--bg);
-      color:#111827;
+    
+    /* ------------------------------------------------------------
+       Global Page Styling
+    ------------------------------------------------------------ */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #0f172a;
     }
-    .app{
-      max-width:980px;
-      margin:24px auto;
-      padding:20px;
+    
+    .app {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 32px;
+      border-radius: var(--radius);
+      background: #ffffffdd;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
     }
-    header h1{
-      font-size:28px;
-      margin:0 0 18px 0;
-      color:var(--accent);
+    
+    /* ------------------------------------------------------------
+       Headers
+    ------------------------------------------------------------ */
+    header h1, .calc-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px !important;
+      color: var(--accent);
+      letter-spacing: 0.4px;
     }
-    .controls{
-      background:var(--card);
-      padding:16px;
-      border-radius:10px;
-      border:1px solid #e6edf6;
+    
+    /* ------------------------------------------------------------
+       Sidebar
+    ------------------------------------------------------------ */
+    .sidebar .element-container {
+      font-family: 'Inter', sans-serif !important;
     }
-    .controls label{
-      display:block;margin:10px 0 6px 0;font-weight:600;
+    
+    /* ------------------------------------------------------------
+       Cards / Sections
+    ------------------------------------------------------------ */
+    .controls, .species-box {
+      background: var(--card);
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    #numSpecies{
-      width:120px;
-      padding:8px;
-      border-radius:6px;
-      border:1px solid #d1d5db;
-      background:#fff;
+    
+    .species-box h3 {
+      margin: 0 0 10px 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--accent);
     }
-    .species-box{
-      background:#fff;
-      border:1px solid #e6edf6;
-      padding:12px;
-      border-radius:8px;
-      margin-top:14px;
+    
+    /* ------------------------------------------------------------
+       Form Inputs
+    ------------------------------------------------------------ */
+    label {
+      font-weight: 600;
+      color: #1e293b;
     }
-    .species-box h3{margin:0 0 8px 0}
-    .species-row{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
+    
+    input[type="number"], select {
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      font-size: 15px;
+      transition: border var(--transition), box-shadow var(--transition);
     }
-    .species-row select, .species-row input[type="number"]{
-      padding:8px;
-      border-radius:6px;
-      border:1px solid #d1d5db;
-      min-width:200px;
+    
+    input:focus, select:focus {
+      border: 1px solid var(--accent-light);
+      box-shadow: 0 0 0 3px rgba(25,118,210,0.2);
+      outline: none;
     }
-    .conditions{
-      display:flex;
-      gap:12px;
-      margin-top:8px;
-      align-items:center;
+    
+    /* ------------------------------------------------------------
+       Buttons
+    ------------------------------------------------------------ */
+    button, .btn, #calculateBtn {
+      background: linear-gradient(90deg, var(--accent-light), var(--accent));
+      border: none;
+      padding: 12px 18px;
+      font-size: 16px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .conditions label{font-weight:500}
-    .btn{
-      margin-top:16px;
-      background:linear-gradient(90deg,#2563eb,#1e40af);
-      color:white;
-      border:none;
-      padding:10px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:700;
+    
+    button:hover, .btn:hover, #calculateBtn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
     }
-    .results{
-      margin-top:18px;
+    
+    #calculateBtn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed !important;
+      transform: none !important;
+      box-shadow: none !important;
     }
-    .result-table{
-      width:100%;
-      border-collapse:collapse;
+    
+    /* ------------------------------------------------------------
+       Table Styling
+    ------------------------------------------------------------ */
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
     }
-    .result-table th, .result-table td{
-      border:1px solid #e6edf6;
-      padding:8px;
-      text-align:left;
+    
+    .result-table th {
+      background: var(--accent);
+      color: white;
+      padding: 10px;
+      font-family: 'Poppins', sans-serif;
     }
-    .note{color:var(--muted);font-size:13px;margin-top:8px}
-
+    
+    .result-table td {
+      border: 1px solid #e2e8f0;
+      padding: 10px;
+      color: #1e293b;
+      background: #ffffffcc;
+    }
+    
+    /* ------------------------------------------------------------
+       Loading Screen
+    ------------------------------------------------------------ */
     #loadingScreen {
       position: fixed;
       inset: 0;
@@ -112,53 +172,26 @@ st.markdown("""
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
       color: white;
+      z-index: 9999;
     }
-
+    
+    /* Logo animation */
+    @keyframes logoPulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.6; }
+    }
+    
     .loading-logo img {
       width: 160px;
       height: 160px;
       animation: logoPulse 2s infinite ease-in-out;
-      background: transparent !important;
     }
-
-    .load-labels {
-      width: 320px;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      margin-bottom: 6px;
-    }
-
-    .loading-left, .loading-right {
-      font-size: 16px;
-      color: #cbd5e1;
-    }
-    .loading-right { font-weight: 700; }
-
-    .loading-bar-container {
-      width: 320px;
-      height: 10px;
-      background: #1e293b;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .loading-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg,#3b82f6,#1d4ed8);
-      transition: width 0.1s linear;
-    }
-
-    @keyframes logoPulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.18); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.7; }
-    }
-
-    /* INTRO SCREEN */
+    
+    /* ------------------------------------------------------------
+       Intro Screen Enhancements
+    ------------------------------------------------------------ */
     .intro-screen {
       position: fixed;
       inset: 0;
@@ -166,125 +199,42 @@ st.markdown("""
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      padding: 40px 20px;
-      background: url("galaxy-bg.png") center/cover no-repeat;
-      overflow-y: auto;
+      padding: 50px 20px;
+      backdrop-filter: blur(6px);
     }
-
+    
     .intro-card {
-      background: #ffffff;
+      background: #ffffffee;
       width: 90%;
       max-width: 900px;
-      padding: 30px 35px;
-      border-radius: 18px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
       text-align: center;
     }
-
-    .intro-top-card { margin-top: 60px; }
-    .intro-bottom-card {
-        margin-top: 300px;
-        margin-bottom: 120px;
-        width: 50%;
-        max-width: 650px;
-    }
-
-    .intro-title { display:flex; align-items:center; justify-content:center; gap:15px; }
+    
     .intro-title h1 {
-      font-size:2.1rem;
-      margin:0;
-      color:#005f5f;
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.4rem;
+      color: var(--accent);
     }
-
-    .intro-icon { width:50px; height:auto; }
-    .intro-logo { width:160px; height:auto; }
-
-    .intro-description {
-      margin-top:15px;
-      font-size:1.05rem;
-      color:#003c3c;
-      line-height:1.6;
-    }
-
-    .intro-developed {
-      color: #005f5f;
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .intro-names {
-      font-size: 0.95rem;
-      color: #003c3c;
-      line-height: 1.5;
-      margin-bottom: 22px;
-    }
-
+    
     .intro-button {
-      background:#007bff;
-      color:white;
-      border:none;
-      padding:12px 25px;
-      font-size:1rem;
-      border-radius:6px;
-      cursor:pointer;
-      transition:0.25s ease;
-      box-shadow:0px 3px 6px rgba(0,0,0,0.15);
+      background: var(--accent);
+      padding: 14px 26px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      transition: var(--transition);
     }
-
+    
     .intro-button:hover {
-      background:#005fcc;
-      transform:translateY(-6px);
-      box-shadow:0px 6px 12px rgba(0,0,0,0.25);
+      background: var(--accent-light);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
     }
 
-    button { transition:0.25s ease; }
-    button:hover {
-      transform:translateY(-6px);
-      box-shadow:0px 9px 15px rgba(0,0,0,0.25);
-    }
-
-    /* Background image for whole app */
-    .intro-screen, .app {
-        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
-        center/cover no-repeat fixed;
-    }
-
-    body {
-        background: url("https://i.pinimg.com/736x/ad/92/8a/ad928a7fbfbc8ead5321928115095ae4.jpg")
-        no-repeat center center fixed;
-        background-size: cover;
-    }
-
-    .app {
-        background:#ffffff !important;
-        padding:25px;
-        border-radius:18px;
-        box-shadow:0 10px 35px rgba(0,0,0,0.45);
-        max-width:900px;
-        margin:40px auto;
-    }
-
-    .calc-title { color:#005f5f !important; }
-
-    input[type=number] {
-      -webkit-appearance: textfield !important;
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: inner-spin-button !important;
-      opacity:1 !important;
-      display:block !important;
-      height:20px !important;
-      width:20px !important;
-      margin:0 !important;
-    }
-
-    #calculateBtn:disabled {
-        cursor:not-allowed !important;
-        opacity:0.6;
-        transform:none !important;
-        box-shadow:none !important;
-    }
 
     </style>
 """, unsafe_allow_html=True)
