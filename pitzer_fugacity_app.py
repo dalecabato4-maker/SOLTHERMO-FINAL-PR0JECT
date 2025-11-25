@@ -348,7 +348,9 @@ if "loaded" not in st.session_state:
             <div style="text-align:center; padding:60px;">
                 <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Calculator%20(1).png?raw=true" width="400" style="margin-bottom:40px;" />
                 <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
-                <p style="font-size:20px;">Initializing thermodynamic models and styling interface...</p>
+                <p style="font-size:20px;">Initializing thermodynamic models and styling interface...
+                <p class="playfair">
+                </p>
             </div>
         """, unsafe_allow_html=True)
         time.sleep(3.5)  # Simulate loading delay
