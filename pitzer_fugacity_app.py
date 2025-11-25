@@ -767,8 +767,7 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
 st.markdown("""
     <h1 style="
         font-family: 'Montserrat', sans-serif; 
-        font-size: 48px; 
-        color: #1e3a8a;
+        font-size: 40px; 
         font-weight: 700;
     ">
     🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)
