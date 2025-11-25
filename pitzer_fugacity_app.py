@@ -764,11 +764,25 @@ def pitzer_fugacity(T, P, Tc, Pc, omega):
 # ------------------------------------------------------------
 # Header Section
 # ------------------------------------------------------------
-st.title("🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)")
 st.markdown("""
-This interactive app estimates *fugacity* and *fugacity coefficient (φ)* for selected gases  
-using the *Pitzer correlation*. It supports both pure gases and mixtures (via mole fraction input).
-""")
+    <h1 style="
+        font-family: 'Montserrat', sans-serif; 
+        font-size: 48px; 
+        color: #1e3a8a;
+        font-weight: 700;
+    ">
+    🌡️ Fugacity & Fugacity Coefficient Calculator (Pitzer Correlation)
+    </h1>
+
+    <p style="
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        line-height: 1.6;
+    ">
+    This interactive app estimates <i>fugacity</i> and <i>fugacity coefficient (φ)</i> for selected gases  
+    using the <i>Pitzer correlation</i>. It supports both pure gases and mixtures (via mole fraction input).
+    </p>
+""", unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Multi-Species Input Section
