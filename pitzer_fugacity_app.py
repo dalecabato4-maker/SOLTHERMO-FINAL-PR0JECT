@@ -323,7 +323,7 @@ with st.sidebar:
     st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
     st.markdown("""
-    <p class="montserrat-italic">
+    <p class="playfair-italic">
             This calculator uses the Pitzer correlation to estimate fugacity and 
             fugacity coefficients for gases under ideal and non-ideal conditions.
         </p>
@@ -348,7 +348,7 @@ if "loaded" not in st.session_state:
             <div style="text-align:center; padding:60px;">
                 <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Calculator%20(1).png?raw=true" width="400" style="margin-bottom:40px;" />
                 <h2 style="color:#1E88E5;">🔄 Loading Fugacity Calculator...</h2>
-                <p style="font-size:16px;">Initializing thermodynamic models and styling interface...</p>
+                <p style="font-size:20px;">Initializing thermodynamic models and styling interface...</p>
             </div>
         """, unsafe_allow_html=True)
         time.sleep(3.5)  # Simulate loading delay
@@ -360,6 +360,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
+        <p class="playfair">
         <h1 style="font-size:52px;">⚗️ Fugacitor ⚗️</h1>
         <p style="font-size:18px; max-width:700px; margin:auto;">
         <p class="playfair">
