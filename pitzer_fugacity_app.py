@@ -367,7 +367,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <h1 style="font-size:46px;"> ⚗️Fugacitor⚗️</h1>
+        <h1 style="font-size:40px;">⚗️Fugacitor⚗️</h1>
         <p style="font-size:18px; max-width:700px; margin:auto;">
         <p class="playfair">
             Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
