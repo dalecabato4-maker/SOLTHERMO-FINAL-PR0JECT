@@ -13,7 +13,10 @@ st.set_page_config(page_title="Fugacity Calculator (Pitzer Correlation)", layout
 # ------------------------------------------------------------
 st.markdown("""
     <style>
-
+    .poppins-italic {
+        font-family: 'Poppins', sans-serif !important;
+        font-style: italic !important;
+    }
     :root{
       --bg:#ffffff;
       --card:#f7f8fb;
@@ -295,7 +298,12 @@ st.markdown("""
 with st.sidebar:
     st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
     st.markdown("### 📘 About This App")
-    st.info("This calculator uses the Pitzer correlation to estimate fugacity and fugacity coefficients for gases under ideal and non ideal conditions.")
+    st.markdown("""
+    <p class="poppins-italic">
+            This calculator uses the Pitzer correlation to estimate fugacity and 
+            fugacity coefficients for gases under ideal and non-ideal conditions.
+        </p>
+    """, unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("Made by Group 4 of ChE-3106")
 
