@@ -367,7 +367,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <h1 style="font-size:54px;">  ⚗️ Fugacitor ⚗️
+        <h1 style="font-size:52px;"> ⚗️Fugacitor⚗️
         <p class="playfair">
         </h1>
         </p>
