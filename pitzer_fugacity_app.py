@@ -329,7 +329,11 @@ with st.sidebar:
         </p>
     """, unsafe_allow_html=True)
     st.markdown("---")
-    st.markdown("Made by Group 4 of ChE-3106")
+    st.markdown("""
+    <p class="playfair">
+    Made by Group 4 of ChE-3106
+    </p>
+    """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------
 # Session State: Homepage Toggle
