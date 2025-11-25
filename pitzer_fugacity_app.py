@@ -60,7 +60,7 @@ st.markdown("""
       padding:20px;
     }
     header h1{
-      font-size:28px;
+      font-size:20px;
       margin:0 0 18px 0;
       color:var(--accent);
     }
