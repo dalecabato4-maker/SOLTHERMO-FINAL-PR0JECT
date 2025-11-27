@@ -320,7 +320,7 @@ st.markdown("""
 # Sidebar
 # ------------------------------------------------------------
 with st.sidebar:
-    st.image("https://static.vecteezy.com/system/resources/thumbnails/050/393/628/small/cute-curious-gray-and-white-kitten-in-a-long-shot-photo.jpg", width=200)
+    st.image("https://o.quizlet.com/86QryQ7W36NpbLjAlS.iRg_b.png", width=200)
     st.markdown("### 📘 About This App")
     st.markdown("""
     <p class="playfair-italic">
