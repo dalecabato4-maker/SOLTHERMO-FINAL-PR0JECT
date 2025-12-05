@@ -368,7 +368,7 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/593456646_1014219404256349_7204573209995906307_n-removebg-preview.png?raw=true" width="400" style="margin-bottom:15px;" />
+        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/593456646_1014219404256349_7204573209995906307_n-removebg-preview.png?raw=true" width="600" style="margin-bottom:5px;" />
         <h1 style="font-size:40px;">Fugacitor</h1>
         <p style="font-size:18px; max-width:700px; margin:auto;">
         <p class="playfair">
