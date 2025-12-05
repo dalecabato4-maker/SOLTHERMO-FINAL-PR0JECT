@@ -367,29 +367,26 @@ if "loaded" not in st.session_state:
 # ------------------------------------------------------------
 if st.session_state.show_homepage:
     st.markdown("""
-    <div style="text-align:center; padding:0px;">
+    <div style="text-align:center; padding:40px;">
+        
+        <!-- LOGO SECTION -->
+        <img src="logo.png" alt="App Logo" style="width:120px; margin-bottom:20px;">
 
-        <!-- LOGO (pulled closer using negative margin) -->
-        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/new%20logo.png?raw=true"
-             width="600"
-             style="margin-bottom:-20px;" />
+        <h1 style="font-size:40px;">⚗️Fugacitor⚗️</h1>
 
-        <!-- TITLE (remove default top margin) -->
-        <h1 style="font-size:40px; margin-top:0px;">Fugacitor</h1>
-
-        <!-- INTRO TEXT -->
-        <p class="playfair" style="font-size:18px; max-width:700px; margin:10px auto;">
-            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.<br>
-            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.<br>
+        <p style="font-size:18px; max-width:700px; margin:auto;"></p>
+        <p class="playfair">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
             This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl.
         </p>
 
-        <h3 style="color:#00aaff; margin-top:20px;">Developed By:</h3>
+        <br/>
+        <h3 style="color:#00aaff;">Developed By:</h3>
 
-        <!-- DEVELOPERS LIST -->
-        <p class="playfair" style="font-size:16px; max-width:800px; margin:auto;">
+        <p class="playfair" style="font-size:16px;">
             Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez · Armela Monique D. Martin ·  
-            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada · Rafaella Anne D. Villas
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
         </p>
 
         <br/><br/>
