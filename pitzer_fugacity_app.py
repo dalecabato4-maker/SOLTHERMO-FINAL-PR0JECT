@@ -368,27 +368,21 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:40px;">
-        
-        <!-- LOGO SECTION -->
-        <img src="logo.png" alt="App Logo" style="width:120px; margin-bottom:20px;">
-
+        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/Calculator%20(1).png?raw=true" width="400" style="margin-bottom:40px;" />
         <h1 style="font-size:40px;">⚗️Fugacitor⚗️</h1>
-
-        <p style="font-size:18px; max-width:700px; margin:auto;"></p>
+        <p style="font-size:18px; max-width:700px; margin:auto;">
         <p class="playfair">
             Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
             Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
             This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl.
         </p>
-
         <br/>
         <h3 style="color:#00aaff;">Developed By:</h3>
-
-        <p class="playfair" style="font-size:16px;">
-            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez · Armela Monique D. Martin ·  
+        <p style="font-size:16px;">
+        <p class="playfair">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
             Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
         </p>
-
         <br/><br/>
     </div>
     """, unsafe_allow_html=True)
