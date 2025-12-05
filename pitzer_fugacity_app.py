@@ -370,7 +370,7 @@ if st.session_state.show_homepage:
     <div style="text-align:center; padding:40px;">
         <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/593456646_1014219404256349_7204573209995906307_n-removebg-preview.png?raw=true" width="600" style="margin-bottom:5px;" />
         <h1 style="font-size:40px; margin-top:0px;">Fugacitor</h1>
-        <p style="font-size:18px; max-width:700px; margin:auto;">
+        <p style="font-size:18px; max-width:700px;">
         <p class="playfair">
             Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
             Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
