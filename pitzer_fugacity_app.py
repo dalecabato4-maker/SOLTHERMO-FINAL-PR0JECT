@@ -789,7 +789,7 @@ st.markdown("""
 # ------------------------------------------------------------
 # Multi-Species Input Section
 # ------------------------------------------------------------
-st.markdown("""<h2>🧪 Multi-Species Fugacity Calculation <span style="color:#1E88E5;">(Ideal Gas model)</span></h2>""",
+st.markdown("""<h2>🧪 Multi-Species Fugacity Calculation <span style="color:#1E88E5;"></span></h2>""",
             unsafe_allow_html=True)
 
 
