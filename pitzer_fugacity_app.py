@@ -368,21 +368,30 @@ if "loaded" not in st.session_state:
 if st.session_state.show_homepage:
     st.markdown("""
     <div style="text-align:center; padding:0px;">
-        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/new%20logo.png?raw=true" width="600" style="margin-bottom:0px;" />
+
+        <!-- LOGO (pulled closer using negative margin) -->
+        <img src="https://github.com/dalecabato4-maker/SOLTHERMO-FINAL-PR0JECT/blob/main/new%20logo.png?raw=true"
+             width="600"
+             style="margin-bottom:-20px;" />
+
+        <!-- TITLE (remove default top margin) -->
         <h1 style="font-size:40px; margin-top:0px;">Fugacitor</h1>
-        <p style="font-size:18px; max-width:700px;">
-        <p class="playfair">
-            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.  
-            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.  
+
+        <!-- INTRO TEXT -->
+        <p class="playfair" style="font-size:18px; max-width:700px; margin:10px auto;">
+            Welcome to the Fugacity & Fugacity Coefficient Calculator using the <b>Pitzer correlation</b>.<br>
+            Fugacity is a corrected pressure that accounts for non-ideal gas behavior — essential for accurate thermodynamic modeling.<br>
             This tool supports both pure gases and mixtures, and is based on the work of Pitzer & Curl.
         </p>
-        <br/>
-        <h3 style="color:#00aaff;">Developed By:</h3>
-        <p style="font-size:16px;">
-        <p class="playfair">
-            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez ·  Armela Monique D. Martin ·  
-            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada ·  Rafaella Anne D. Villas
+
+        <h3 style="color:#00aaff; margin-top:20px;">Developed By:</h3>
+
+        <!-- DEVELOPERS LIST -->
+        <p class="playfair" style="font-size:16px; max-width:800px; margin:auto;">
+            Dale Clarenz J. Cabato · Andrea Mae A. Hernandez · Francisco Andrei Joseph Laudez · Armela Monique D. Martin ·  
+            Dimple Jean E. Padilla · Archie P. Plata · Aliona Galle D. Tejada · Rafaella Anne D. Villas
         </p>
+
         <br/><br/>
     </div>
     """, unsafe_allow_html=True)
@@ -391,6 +400,7 @@ if st.session_state.show_homepage:
         st.session_state.show_homepage = False
 
     st.stop()
+
 # ------------------------------------------------------------
 # Gas Database (Critical Constants)
 # ------------------------------------------------------------
